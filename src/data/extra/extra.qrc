@@ -150,13 +150,30 @@
         <file>themes/pure/up.svg</file>
         <file>themes/pure/up_disabled.svg</file>
         <file>themes/pure/web.css</file>
-        <file>syntax-highlighting/themes/markdown-default.theme</file>
-        <file>syntax-highlighting/themes/markdown-breeze-dark.theme</file>
-        <file>syntax-highlighting/themes/default.theme</file>
+        <file>syntax-highlighting/themes/atom-one-dark.theme</file>
+        <file>syntax-highlighting/themes/atom-one-light.theme</file>
+        <file>syntax-highlighting/themes/ayu-dark.theme</file>
+        <file>syntax-highlighting/themes/ayu-light.theme</file>
+        <file>syntax-highlighting/themes/ayu-mirage.theme</file>
         <file>syntax-highlighting/themes/breeze-dark.theme</file>
+        <file>syntax-highlighting/themes/breeze-light.theme</file>
+        <file>syntax-highlighting/themes/default.theme</file>
+        <file>syntax-highlighting/themes/dracula.theme</file>
+        <file>syntax-highlighting/themes/falcon.theme</file>
+        <file>syntax-highlighting/themes/github-dark.theme</file>
+        <file>syntax-highlighting/themes/github-light.theme</file>
+        <file>syntax-highlighting/themes/gruvbox-dark.theme</file>
+        <file>syntax-highlighting/themes/gruvbox-light.theme</file>
+        <file>syntax-highlighting/themes/markdown-breeze-dark.theme</file>
+        <file>syntax-highlighting/themes/markdown-default.theme</file>
+        <file>syntax-highlighting/themes/monokai.theme</file>
+        <file>syntax-highlighting/themes/nord.theme</file>
+        <file>syntax-highlighting/themes/oblivion.theme</file>
         <file>syntax-highlighting/themes/printing.theme</file>
+        <file>syntax-highlighting/themes/radical.theme</file>
         <file>syntax-highlighting/themes/solarized-dark.theme</file>
         <file>syntax-highlighting/themes/solarized-light.theme</file>
+        <file>syntax-highlighting/themes/vim-dark.theme</file>
         <file>syntax-highlighting/syntax/4dos.xml</file>
         <file>syntax-highlighting/syntax/abap.xml</file>
         <file>syntax-highlighting/syntax/abc.xml</file>
@@ -180,6 +197,7 @@
         <file>syntax-highlighting/syntax/asm6502.xml</file>
         <file>syntax-highlighting/syntax/asn1.xml</file>
         <file>syntax-highlighting/syntax/asp.xml</file>
+        <file>syntax-highlighting/syntax/ats.xml</file>
         <file>syntax-highlighting/syntax/awk.xml</file>
         <file>syntax-highlighting/syntax/bash.xml</file>
         <file>syntax-highlighting/syntax/bibtex.xml</file>
@@ -193,7 +211,6 @@
         <file>syntax-highlighting/syntax/cg.xml</file>
         <file>syntax-highlighting/syntax/cgis.xml</file>
         <file>syntax-highlighting/syntax/changelog.xml</file>
-        <file>syntax-highlighting/syntax/chicken.xml</file>
         <file>syntax-highlighting/syntax/cil.xml</file>
         <file>syntax-highlighting/syntax/cisco.xml</file>
         <file>syntax-highlighting/syntax/clipper.xml</file>
@@ -202,6 +219,7 @@
         <file>syntax-highlighting/syntax/cmake.xml</file>
         <file>syntax-highlighting/syntax/coffee.xml</file>
         <file>syntax-highlighting/syntax/coldfusion.xml</file>
+        <file>syntax-highlighting/syntax/comments.xml</file>
         <file>syntax-highlighting/syntax/commonlisp.xml</file>
         <file>syntax-highlighting/syntax/component-pascal.xml</file>
         <file>syntax-highlighting/syntax/context.xml</file>
@@ -213,6 +231,7 @@
         <file>syntax-highlighting/syntax/cue.xml</file>
         <file>syntax-highlighting/syntax/curry.xml</file>
         <file>syntax-highlighting/syntax/d.xml</file>
+        <file>syntax-highlighting/syntax/dart.xml</file>
         <file>syntax-highlighting/syntax/debianchangelog.xml</file>
         <file>syntax-highlighting/syntax/debiancontrol.xml</file>
         <file>syntax-highlighting/syntax/desktop.xml</file>
@@ -223,7 +242,6 @@
         <file>syntax-highlighting/syntax/dot.xml</file>
         <file>syntax-highlighting/syntax/doxyfile.xml</file>
         <file>syntax-highlighting/syntax/doxygen.xml</file>
-        <file>syntax-highlighting/syntax/doxygenlua.xml</file>
         <file>syntax-highlighting/syntax/dtd.xml</file>
         <file>syntax-highlighting/syntax/e.xml</file>
         <file>syntax-highlighting/syntax/eiffel.xml</file>
@@ -239,6 +257,7 @@
         <file>syntax-highlighting/syntax/fgl-per.xml</file>
         <file>syntax-highlighting/syntax/fish.xml</file>
         <file>syntax-highlighting/syntax/flatbuffers.xml</file>
+        <file>syntax-highlighting/syntax/fluent.xml</file>
         <file>syntax-highlighting/syntax/fortran-fixed.xml</file>
         <file>syntax-highlighting/syntax/fortran-free.xml</file>
         <file>syntax-highlighting/syntax/freebasic.xml</file>
@@ -248,11 +267,13 @@
         <file>syntax-highlighting/syntax/gap.xml</file>
         <file>syntax-highlighting/syntax/gcc.xml</file>
         <file>syntax-highlighting/syntax/gcode.xml</file>
+        <file>syntax-highlighting/syntax/gd-script.xml</file>
         <file>syntax-highlighting/syntax/gdb-bt.xml</file>
         <file>syntax-highlighting/syntax/gdb.xml</file>
         <file>syntax-highlighting/syntax/gdbinit.xml</file>
         <file>syntax-highlighting/syntax/gdl.xml</file>
         <file>syntax-highlighting/syntax/gettext.xml</file>
+        <file>syntax-highlighting/syntax/gherkin.xml</file>
         <file>syntax-highlighting/syntax/git-ignore.xml</file>
         <file>syntax-highlighting/syntax/git-rebase.xml</file>
         <file>syntax-highlighting/syntax/gitolite.xml</file>
@@ -262,6 +283,7 @@
         <file>syntax-highlighting/syntax/gnuplot.xml</file>
         <file>syntax-highlighting/syntax/go.xml</file>
         <file>syntax-highlighting/syntax/grammar.xml</file>
+        <file>syntax-highlighting/syntax/graphql.xml</file>
         <file>syntax-highlighting/syntax/groovy.xml</file>
         <file>syntax-highlighting/syntax/haml.xml</file>
         <file>syntax-highlighting/syntax/hamlet.xml</file>
@@ -274,13 +296,16 @@
         <file>syntax-highlighting/syntax/hunspell-idx.xml</file>
         <file>syntax-highlighting/syntax/idconsole.xml</file>
         <file>syntax-highlighting/syntax/idl.xml</file>
+        <file>syntax-highlighting/syntax/idris.xml</file>
         <file>syntax-highlighting/syntax/ilerpg.xml</file>
         <file>syntax-highlighting/syntax/inform.xml</file>
         <file>syntax-highlighting/syntax/ini.xml</file>
+        <file>syntax-highlighting/syntax/innosetup.xml</file>
         <file>syntax-highlighting/syntax/intelhex.xml</file>
         <file>syntax-highlighting/syntax/isocpp.xml</file>
         <file>syntax-highlighting/syntax/j.xml</file>
         <file>syntax-highlighting/syntax/jam.xml</file>
+        <file>syntax-highlighting/syntax/java-properties.xml</file>
         <file>syntax-highlighting/syntax/java.xml</file>
         <file>syntax-highlighting/syntax/javadoc.xml</file>
         <file>syntax-highlighting/syntax/javascript-react.xml</file>
@@ -303,6 +328,7 @@
         <file>syntax-highlighting/syntax/lilypond.xml</file>
         <file>syntax-highlighting/syntax/literate-curry.xml</file>
         <file>syntax-highlighting/syntax/literate-haskell.xml</file>
+        <file>syntax-highlighting/syntax/llvm.xml</file>
         <file>syntax-highlighting/syntax/logcat.xml</file>
         <file>syntax-highlighting/syntax/logtalk.xml</file>
         <file>syntax-highlighting/syntax/lpc.xml</file>
@@ -334,6 +360,7 @@
         <file>syntax-highlighting/syntax/modula-2-pim-only.xml</file>
         <file>syntax-highlighting/syntax/modula-2-r10-only.xml</file>
         <file>syntax-highlighting/syntax/modula-2.xml</file>
+        <file>syntax-highlighting/syntax/modula-3.xml</file>
         <file>syntax-highlighting/syntax/monobasic.xml</file>
         <file>syntax-highlighting/syntax/mup.xml</file>
         <file>syntax-highlighting/syntax/mustache.xml</file>
@@ -341,6 +368,7 @@
         <file>syntax-highlighting/syntax/nasm.xml</file>
         <file>syntax-highlighting/syntax/nemerle.xml</file>
         <file>syntax-highlighting/syntax/nesc.xml</file>
+        <file>syntax-highlighting/syntax/nim.xml</file>
         <file>syntax-highlighting/syntax/ninja.xml</file>
         <file>syntax-highlighting/syntax/noweb.xml</file>
         <file>syntax-highlighting/syntax/nsis.xml</file>
@@ -354,6 +382,7 @@
         <file>syntax-highlighting/syntax/opal.xml</file>
         <file>syntax-highlighting/syntax/opencl.xml</file>
         <file>syntax-highlighting/syntax/openscad.xml</file>
+        <file>syntax-highlighting/syntax/overpassql.xml</file>
         <file>syntax-highlighting/syntax/pango.xml</file>
         <file>syntax-highlighting/syntax/pascal.xml</file>
         <file>syntax-highlighting/syntax/perl.xml</file>
@@ -375,17 +404,21 @@
         <file>syntax-highlighting/syntax/protobuf.xml</file>
         <file>syntax-highlighting/syntax/pug.xml</file>
         <file>syntax-highlighting/syntax/puppet.xml</file>
+        <file>syntax-highlighting/syntax/pure.xml</file>
         <file>syntax-highlighting/syntax/purebasic.xml</file>
+        <file>syntax-highlighting/syntax/purescript.xml</file>
         <file>syntax-highlighting/syntax/python.xml</file>
         <file>syntax-highlighting/syntax/q.xml</file>
         <file>syntax-highlighting/syntax/qdocconf.xml</file>
         <file>syntax-highlighting/syntax/qmake.xml</file>
         <file>syntax-highlighting/syntax/qml.xml</file>
         <file>syntax-highlighting/syntax/r.xml</file>
+        <file>syntax-highlighting/syntax/raku.xml</file>
         <file>syntax-highlighting/syntax/rapidq.xml</file>
         <file>syntax-highlighting/syntax/rdoc.xml</file>
         <file>syntax-highlighting/syntax/relaxng.xml</file>
         <file>syntax-highlighting/syntax/relaxngcompact.xml</file>
+        <file>syntax-highlighting/syntax/renpy.xml</file>
         <file>syntax-highlighting/syntax/replicode.xml</file>
         <file>syntax-highlighting/syntax/rest.xml</file>
         <file>syntax-highlighting/syntax/rexx.xml</file>
@@ -413,6 +446,9 @@
         <file>syntax-highlighting/syntax/sisu.xml</file>
         <file>syntax-highlighting/syntax/smali.xml</file>
         <file>syntax-highlighting/syntax/sml.xml</file>
+        <file>syntax-highlighting/syntax/snort_suricata.xml</file>
+        <file>syntax-highlighting/syntax/solidity.xml</file>
+        <file>syntax-highlighting/syntax/spdx-comments.xml</file>
         <file>syntax-highlighting/syntax/spice.xml</file>
         <file>syntax-highlighting/syntax/sql-mysql.xml</file>
         <file>syntax-highlighting/syntax/sql-oracle.xml</file>
@@ -421,17 +457,22 @@
         <file>syntax-highlighting/syntax/stan.xml</file>
         <file>syntax-highlighting/syntax/stata.xml</file>
         <file>syntax-highlighting/syntax/stl.xml</file>
+        <file>syntax-highlighting/syntax/subrip-subtitles.xml</file>
+        <file>syntax-highlighting/syntax/swift.xml</file>
         <file>syntax-highlighting/syntax/systemc.xml</file>
+        <file>syntax-highlighting/syntax/systemd-unit.xml</file>
         <file>syntax-highlighting/syntax/systemverilog.xml</file>
         <file>syntax-highlighting/syntax/tads3.xml</file>
         <file>syntax-highlighting/syntax/taskjuggler.xml</file>
         <file>syntax-highlighting/syntax/tcl.xml</file>
         <file>syntax-highlighting/syntax/tcsh.xml</file>
         <file>syntax-highlighting/syntax/template-toolkit.xml</file>
+        <file>syntax-highlighting/syntax/terraform.xml</file>
         <file>syntax-highlighting/syntax/texinfo.xml</file>
         <file>syntax-highlighting/syntax/textile.xml</file>
         <file>syntax-highlighting/syntax/tibasic.xml</file>
         <file>syntax-highlighting/syntax/tiger.xml</file>
+        <file>syntax-highlighting/syntax/todo.xml</file>
         <file>syntax-highlighting/syntax/toml.xml</file>
         <file>syntax-highlighting/syntax/txt2tags.xml</file>
         <file>syntax-highlighting/syntax/typescript-react.xml</file>
@@ -440,11 +481,8 @@
         <file>syntax-highlighting/syntax/vala.xml</file>
         <file>syntax-highlighting/syntax/valgrind-suppression.xml</file>
         <file>syntax-highlighting/syntax/varnish.xml</file>
-        <file>syntax-highlighting/syntax/varnish4.xml</file>
         <file>syntax-highlighting/syntax/varnishcc.xml</file>
-        <file>syntax-highlighting/syntax/varnishcc4.xml</file>
         <file>syntax-highlighting/syntax/varnishtest.xml</file>
-        <file>syntax-highlighting/syntax/varnishtest4.xml</file>
         <file>syntax-highlighting/syntax/vcard.xml</file>
         <file>syntax-highlighting/syntax/velocity.xml</file>
         <file>syntax-highlighting/syntax/vera.xml</file>
@@ -466,6 +504,7 @@
         <file>syntax-highlighting/syntax/yacc.xml</file>
         <file>syntax-highlighting/syntax/yaml.xml</file>
         <file>syntax-highlighting/syntax/yang.xml</file>
+        <file>syntax-highlighting/syntax/yara.xml</file>
         <file>syntax-highlighting/syntax/zonnon.xml</file>
         <file>syntax-highlighting/syntax/zsh.xml</file>
     </qresource>

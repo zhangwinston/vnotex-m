@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd"
 [
-        <!ENTITY white             "	 ">                            <!-- first is tab -->
+        <!ENTITY tab               "&#x9;">
+        <!ENTITY white             "&tab; ">                            <!-- first is tab -->
         <!ENTITY eocommand         "&white;&lt;&gt;^">                 <!-- end of command separator -->
-        <!ENTITY allchars          "[&white;!&quot;#$&#37;&amp;'()*+,-./0-9:;&lt;=&gt;?@A-Z[\]\\^_`a-z{}|~]"> <!--&percent; doesn't work -> &#37; -->
         <!ENTITY separator         "&white;|&amp;;&lt;&gt;()'&quot;">  <!-- token separator as char list -->
         <!ENTITY commandsep        "|&amp;;">                          <!-- command separator as char list -->
         <!ENTITY special           "{}*/.?\\$&amp;">                   <!-- not allowed in function names -->
         <!ENTITY portable_filename "A-Za-z0-9\._-">
         <!ENTITY funcname_first    "a-zA-Z+:=!.@_`">
         <!ENTITY funcname_last     "a-zA-Z0-9+,-:=!.@#&#37;^_`~">
-        <!ENTITY funcname          "[&funcname_first;]([&funcname_last;]|\\ )*">
+        <!ENTITY funcname          "[&funcname_first;](?:[&funcname_last;]|\\ )*">
         <!ENTITY varname           "[A-Za-z0-9_]+">
         <!ENTITY alnumdash         "[A-Za-z0-9-]">                     <!-- option chars, dashes for GNU long opts -->
         <!ENTITY testoptsfile      "[bcdefgGkLOprsStuwx]">             <!-- test operators for file testing -->
         <!ENTITY testoptsother     "[nzao]">                           <!-- other test operators -->
         <!ENTITY braceelement      "[!#&#37;+\-\./0-9:=@A-Z^_`a-z~]">
         <!ENTITY escapechars       "[abefnrtv $\\*?~&#37;#(){}[\]&lt;&gt;\^&amp;;&quot;&apos;]">   <!-- escape chars -->
-        <!ENTITY white_or_eol      "([&white;]|$)">
+        <!ENTITY white_or_eol      "(?:[&white;]|$)">
         <!ENTITY homedir           "~[&portable_filename;]*">
-        <!ENTITY pathdetect        "((\.\.|\.|&homedir;)&white_or_eol;|([^$\\{}&separator;/\*\?]|\\&escapechars;)*(/|\*|\*\*|\?))">
-        <!ENTITY pathpart          "(([^&separator;/]|\\&escapechars;)*)?(/|(?=&quot;)|(?='))">
+        <!ENTITY pathdetect        "(?:(?:\.\.?|&homedir;)&white_or_eol;|(?:[^$\\{}&separator;/\*\?]|\\&escapechars;)*(:?[/?]|\*\*?))">
+        <!ENTITY pathpart          "(?:[^&separator;/]|\\&escapechars;)*(?:/|(?=[&quot;']))">
 ]>
 
 
-<language name="Fish" version="1" kateversion="5.0" section="Scripts" extensions="*.fish;fishd.*" mimetype="application/x-fish" casesensitive="1" author="Arnd Diestelhorst (adiestelhorst@m-xchg.de)" license="LGPL">
+<language name="Fish" version="8" kateversion="5.72" section="Scripts" extensions="*.fish;fishd.*" mimetype="application/x-fish" casesensitive="1" author="Arnd Diestelhorst (adiestelhorst@m-xchg.de)" license="LGPL">
 
 
   <highlighting>
@@ -121,341 +121,16 @@
     </list>
 
     <list name="unixcommands">
-      <item>aclocal</item>
-      <item>aconnect</item>
-      <item>aplay</item>
-      <item>apm</item>
-      <item>apmsleep</item>
-      <item>apropos</item>
-      <item>arch</item>
-      <item>arecord</item>
-      <item>ar</item>
-      <item>as86</item>
-      <item>as</item>
-      <item>autoconf</item>
-      <item>autoheader</item>
-      <item>automake</item>
-      <item>awk</item>
-      <item>basename</item>
-      <item>bash</item>
-      <item>bc</item>
-      <item>bison</item>
-      <item>bunzip2</item>
-      <item>bzcat</item>
-      <item>bzcmp</item>
-      <item>bzdiff</item>
-      <item>bzegrep</item>
-      <item>bzfgrep</item>
-      <item>bzgrep</item>
-      <item>bzip2</item>
-      <item>bzip2recover</item>
-      <item>bzless</item>
-      <item>bzmore</item>
-      <item>cal</item>
-      <item>cat</item>
-      <item>cc</item>
-      <item>cdda2wav</item>
-      <item>cdparanoia</item>
-      <item>cdrdao</item>
-      <item>cd-read</item>
-      <item>cdrecord</item>
-      <item>chattr</item>
-      <item>chfn</item>
-      <item>chgrp</item>
-      <item>chmod</item>
-      <item>chown</item>
-      <item>chroot</item>
-      <item>chsh</item>
-      <item>chvt</item>
-      <item>c++</item>
-      <item>clang</item>
-      <item>clear</item>
-      <item>cmake</item>
-      <item>cmp</item>
-      <item>co</item>
-      <item>col</item>
-      <item>comm</item>
-      <item>cpio</item>
-      <item>cp</item>
-      <item>cpp</item>
-      <item>cut</item>
-      <item>date</item>
-      <item>dc</item>
-      <item>dcop</item>
-      <item>dd</item>
-      <item>deallocvt</item>
-      <item>df</item>
-      <item>diff3</item>
-      <item>diff</item>
-      <item>dircolors</item>
-      <item>directomatic</item>
-      <item>dir</item>
-      <item>dirname</item>
-      <item>dmesg</item>
-      <item>dnsdomainname</item>
-      <item>domainname</item>
-      <item>du</item>
-      <item>dumpkeys</item>
-      <item>echo</item>
-      <item>ed</item>
-      <item>egrep</item>
-      <item>env</item>
-      <item>expr</item>
-      <item>false</item>
-      <item>fbset</item>
-      <item>fgconsole</item>
-      <item>fgrep</item>
-      <item>file</item>
-      <item>find</item>
-      <item>flex</item>
-      <item>flex++</item>
-      <item>fmt</item>
-      <item>free</item>
-      <item>ftp</item>
-      <item>funzip</item>
-      <item>fuser</item>
-      <item>gawk</item>
-      <item>gcc</item>
-      <item>gc</item>
-      <item>gdb</item>
-      <item>getent</item>
-      <item>getkeycodes</item>
-      <item>getopt</item>
-      <item>gettext</item>
-      <item>gettextize</item>
-      <item>gimp</item>
-      <item>gimp-remote</item>
-      <item>gimptool</item>
-      <item>g++</item>
-      <item>git</item>
-      <item>gmake</item>
-      <item>gocr</item>
-      <item>grep</item>
-      <item>groff</item>
-      <item>groups</item>
-      <item>gs</item>
-      <item>gunzip</item>
-      <item>gzexe</item>
-      <item>gzip</item>
-      <item>head</item>
-      <item>hexdump</item>
-      <item>hostname</item>
-      <item>id</item>
-      <item>igawk</item>
-      <item>install</item>
-      <item>join</item>
-      <item>kbd_mode</item>
-      <item>kbdrate</item>
-      <item>kdialog</item>
-      <item>kfile</item>
-      <item>killall</item>
+      <include>unixcommands##Bash</include>
+      <item>command</item>
       <item>kill</item>
-      <item>lastb</item>
-      <item>last</item>
-      <item>ld86</item>
-      <item>ldd</item>
-      <item>ld</item>
-      <item>less</item>
-      <item>lex</item>
-      <item>link</item>
-      <item>ln</item>
-      <item>ln</item>
-      <item>loadkeys</item>
-      <item>loadunimap</item>
-      <item>locate</item>
-      <item>lockfile</item>
-      <item>login</item>
-      <item>logname</item>
-      <item>lp</item>
-      <item>lpr</item>
-      <item>lsattr</item>
-      <item>ls</item>
-      <item>lsmod</item>
-      <item>lsmod.old</item>
-      <item>lynx</item>
-      <item>lzcat</item>
-      <item>lzcmp</item>
-      <item>lzdiff</item>
-      <item>lzegrep</item>
-      <item>lzfgrep</item>
-      <item>lzgrep</item>
-      <item>lzless</item>
-      <item>lzmainfo</item>
-      <item>lzma</item>
-      <item>lzmore</item>
-      <item>m4</item>
-      <item>make</item>
-      <item>man</item>
-      <item>mapscrn</item>
-      <item>mesg</item>
-      <item>mkdir</item>
-      <item>mkfifo</item>
-      <item>mknod</item>
-      <item>mktemp</item>
-      <item>more</item>
-      <item>mount</item>
-      <item>msgfmt</item>
-      <item>mv</item>
-      <item>namei</item>
-      <item>nano</item>
-      <item>nasm</item>
-      <item>nawk</item>
-      <item>netstat</item>
-      <item>nice</item>
-      <item>nisdomainname</item>
-      <item>nl</item>
-      <item>nm86</item>
-      <item>nmap</item>
-      <item>nm</item>
-      <item>nohup</item>
-      <item>nop</item>
-      <item>nroff</item>
-      <item>od</item>
-      <item>openvt</item>
-      <item>passwd</item>
-      <item>patch</item>
-      <item>pcregrep</item>
-      <item>pcretest</item>
-      <item>perl</item>
-      <item>perror</item>
-      <item>pgawk</item>
-      <item>pidof</item>
-      <item>ping</item>
-      <item>printf</item>
-      <item>pr</item>
-      <item>procmail</item>
-      <item>prune</item>
-      <item>ps2ascii</item>
-      <item>ps2epsi</item>
-      <item>ps2frag</item>
-      <item>ps2pdf</item>
-      <item>ps2ps</item>
-      <item>psbook</item>
-      <item>ps</item>
-      <item>psmerge</item>
-      <item>psnup</item>
-      <item>psresize</item>
-      <item>psselect</item>
-      <item>pstops</item>
-      <item>pstree</item>
-      <item>pwd</item>
-      <item>qmake</item>
-      <item>rbash</item>
-      <item>rcs</item>
-      <item>readlink</item>
-      <item>red</item>
-      <item>resizecons</item>
-      <item>rev</item>
-      <item>rmdir</item>
-      <item>rm</item>
-      <item>rsync</item>
-      <item>run-parts</item>
-      <item>sash</item>
-      <item>scp</item>
-      <item>sed</item>
-      <item>seq</item>
-      <item>setfont</item>
-      <item>setkeycodes</item>
-      <item>setleds</item>
-      <item>setmetamode</item>
-      <item>setserial</item>
-      <item>setterm</item>
-      <item>sh</item>
-      <item>showkey</item>
-      <item>shred</item>
-      <item>size86</item>
-      <item>size</item>
-      <item>skill</item>
-      <item>sleep</item>
-      <item>slogin</item>
-      <item>snice</item>
-      <item>sort</item>
-      <item>sox</item>
-      <item>split</item>
-      <item>ssed</item>
-      <item>ssh-add</item>
-      <item>ssh-agent</item>
-      <item>ssh</item>
-      <item>ssh-keygen</item>
-      <item>ssh-keyscan</item>
-      <item>stat</item>
-      <item>strings</item>
-      <item>strip</item>
-      <item>stty</item>
-      <item>sudo</item>
-      <item>suidperl</item>
-      <item>su</item>
-      <item>sum</item>
-      <item>svn</item>
-      <item>sync</item>
-      <item>tac</item>
-      <item>tail</item>
-      <item>tar</item>
-      <item>tee</item>
-      <item>tempfile</item>
       <item>test</item>
-      <item>touch</item>
-      <item>tr</item>
-      <item>troff</item>
-      <item>true</item>
-      <item>truncate</item>
-      <item>umount</item>
-      <item>uname</item>
-      <item>unicode_start</item>
-      <item>unicode_stop</item>
-      <item>uniq</item>
-      <item>unlink</item>
-      <item>unlzma</item>
-      <item>unxz</item>
-      <item>unzip</item>
-      <item>updatedb</item>
-      <item>updmap</item>
-      <item>uptime</item>
-      <item>users</item>
-      <item>utmpdump</item>
-      <item>uuidgen</item>
-      <item>valgrind</item>
-      <item>vdir</item>
-      <item>vmstat</item>
-      <item>wall</item>
-      <item>wc</item>
-      <item>wget</item>
-      <item>whatis</item>
-      <item>whereis</item>
-      <item>which</item>
-      <item>whoami</item>
-      <item>who</item>
-      <item>w</item>
-      <item>write</item>
-      <item>xargs</item>
-      <item>xdg-open</item>
-      <item>xhost</item>
-      <item>xmodmap</item>
-      <item>xset</item>
-      <item>xzcat</item>
-      <item>xz</item>
-      <item>yacc</item>
-      <item>yes</item>
-      <item>ypdomainname</item>
-      <item>zcat</item>
-      <item>zcmp</item>
-      <item>zdiff</item>
-      <item>zegrep</item>
-      <item>zfgrep</item>
-      <item>zforce</item>
-      <item>zgrep</item>
-      <item>zip</item>
-      <item>zless</item>
-      <item>zmore</item>
-      <item>znew</item>
-      <item>zsh</item>
-      <item>zsoelim</item>
     </list>
 
 
 
     <contexts>
-      <context name="Start" attribute="Normal Text" lineEndContext="#stay" fallthrough="true" fallthroughContext="Root">
+      <context name="Start" attribute="Normal Text" lineEndContext="#stay" fallthroughContext="Root">
         <DetectChar attribute="Error" context="DropRestOfLine" char=")"/>
       </context>
 
@@ -492,8 +167,7 @@
         <Detect2Chars attribute="Comment" char="\" char1=")" />
         <DetectChar context="CommentParenSub" char="(" />
         <DetectChar context="#pop" char=")" lookAhead="true" />
-        <IncludeRules context="##Alerts" />
-        <IncludeRules context="##Modelines" />
+        <IncludeRules context="##Comments" />
       </context>
 
       <context name="CommentParenSub" attribute="Comment" lineEndContext="BlockComment">
@@ -501,7 +175,7 @@
         <IncludeRules context="Comment" />
       </context>
 
-      <context name="BlockComment" attribute="Comment" fallthrough="true" fallthroughContext="#pop#pop#pop" lineEndContext="#stay">
+      <context name="BlockComment" attribute="Comment" fallthroughContext="#pop#pop#pop" lineEndContext="#stay">
         <DetectChar attribute="Comment" context="#pop" char="#" firstNonSpace="true"/>
       </context>
 
@@ -544,7 +218,8 @@
         <WordDetect attribute="Builtin" String="read" context="read_vared" />
         <WordDetect attribute="Builtin" String="vared" context="read_vared" />
         <WordDetect attribute="Builtin" String="test" context="ArgumentsTest" />
-        <RegExpr    attribute="Builtin" String="\[\s" context="ArgumentsTestBrack" />
+        <Detect2Chars attribute="Builtin" char="[" char1="&tab;" context="ArgumentsTestBrack" />
+        <Detect2Chars attribute="Builtin" char="[" char1=" " context="ArgumentsTestBrack" />
         <WordDetect attribute="Control Flow" String="begin" context="begin" beginRegion="begin" />
         <WordDetect attribute="Control Flow" String="for" context="for" beginRegion="for" />
         <WordDetect attribute="Control Flow" String="function" context="function" beginRegion="function" />
@@ -603,7 +278,7 @@
 
       <context name="ArgumentsTestBrack" attribute="Normal Text" lineEndContext="#pop">
         <LineContinue attribute="Escape" />
-		<Detect2Chars attribute="Builtin" char=" " char1="]" context="#pop!ArgumentsNonePre" />
+        <Detect2Chars attribute="Builtin" char=" " char1="]" context="#pop!ArgumentsNonePre" />
         <AnyChar attribute="Error" context="#pop!DropRestOfLine" String="#&commandsep;&amp;"/>
         <IncludeRules context="ArgumentsTest" />
       </context>
@@ -616,8 +291,7 @@
 
       <context name="ArgumentsTest_common" attribute="Normal Text" lineEndContext="#pop">
         <RegExpr attribute="Operator" context="DirectPath" String="-&testoptsfile; " />
-        <RegExpr attribute="Operator" String="-&testoptsother; " />
-        <RegExpr attribute="Operator" String="(!|=|!=| -eq | -ne | -gt | -ge | -lt | -le )"/>
+        <RegExpr attribute="Operator" String="-&testoptsother; |!=?|=| -eq | -ne | -gt | -ge | -lt | -le "/>
         <AnyChar context="#pop" String="&commandsep;" lookAhead="true"/>
         <IncludeRules context="FindArgumentsCommon" />
       </context>
@@ -630,14 +304,14 @@
 
       <context name="beginbody" attribute="Normal Text" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
-        <StringDetect attribute="Control Flow" String="end" context="#pop#pop" endRegion="begin" />
+        <WordDetect attribute="Control Flow" String="end" context="#pop#pop" endRegion="begin" />
         <IncludeRules context="Root" />
       </context>
 
       <context name="for" attribute="Normal Text" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
         <DetectSpaces attribute="Normal Text" />
-        <Detect2Chars attribute="Control Flow" char="i" char1="n" context="forargs" />
+        <WordDetect attribute="Control Flow" String="in" context="forargs" />
         <RegExpr attribute="Variable" String="&varname;" />
         <IncludeRules context="FindVarExpansion" />
         <RegExpr attribute="Error" String="."/>
@@ -651,7 +325,7 @@
 
       <context name="forbody" attribute="Normal Text" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
-        <StringDetect attribute="Control Flow" String="end" context="#pop#pop#pop" endRegion="for" />
+        <WordDetect attribute="Control Flow" String="end" context="#pop#pop#pop" endRegion="for" />
         <IncludeRules context="Root" />
       </context>
 
@@ -671,7 +345,7 @@
 
       <context name="funcopts" attribute="Normal Text" lineEndContext="#pop!funcbody">
         <DetectChar attribute="Comment" context="#pop!func_comment" char="#"/>
-        <RegExpr attribute="Option" String="(-d[&white;]*|--description=)(?=('|&quot;))" context="funcdesc" beginRegion="doc"/>
+        <RegExpr attribute="Option" String="(?:-d[&white;]*|--description=)(?=[&quot;'])" context="funcdesc" beginRegion="doc"/>
         <RegExpr attribute="Option" String="-&alnumdash;*" />
         <DetectChar attribute="Separator" context="#pop!funcbody" char=";" />
         <IncludeRules context="FindArgumentsCommon" />
@@ -702,23 +376,21 @@
 
       <context name="funcbody" attribute="Normal Text" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
-        <StringDetect attribute="Control Flow" String="end" context="#pop#pop" endRegion="function" />
+        <WordDetect attribute="Control Flow" String="end" context="#pop#pop" endRegion="function" />
         <IncludeRules context="Root" />
       </context>
 
       <context name="if" attribute="Normal Text" lineEndContext="#stay">
-        <LineContinue attribute="Escape" />
-        <RegExpr attribute="Control Flow" String="\s*(else\s*if|else)" />
-        <StringDetect attribute="Control Flow" String="end" context="#pop" endRegion="if"/>
+        <LineContinue attribute="Escape"/>
+        <WordDetect attribute="Control Flow" String="else" context="else" endRegion="if" beginRegion="if"/>
+        <WordDetect attribute="Control Flow" String="end" context="#pop" endRegion="if"/>
         <IncludeRules context="Root" />
       </context>
 
-      <context name="else" attribute="Normal Text" lineEndContext="#stay">
-        <LineContinue attribute="Escape" />
-        <RegExpr String="\s*(else|end|else\s*if)" context="#pop" lookAhead="true"/>
-        <RegExpr attribute="Control Flow" String="\s*(else\s*if|else)" context="else" />
-        <StringDetect attribute="Control Flow" String="end" context="#pop#pop" endRegion="if"/>
-        <IncludeRules context="Root" />
+      <context name="else" attribute="Normal Text" lineEndContext="#stay" fallthroughContext="#pop">
+        <DetectSpaces attribute="Normal Text" context="#stay"/>
+        <LineContinue attribute="Escape" context="#stay"/>
+        <WordDetect attribute="Control Flow" String="if" context="#pop"/>
       </context>
 
       <context name="switch" attribute="Normal Text" lineEndContext="switchbody">
@@ -729,8 +401,8 @@
 
       <context name="switchbody" attribute="Normal Text" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
-        <RegExpr attribute="Control Flow" String="\s*case" context="case" beginRegion="case" />
-        <StringDetect attribute="Control Flow" String="end" context="#pop#pop" endRegion="switch"/>
+        <WordDetect attribute="Control Flow" String="case" context="case" beginRegion="case" />
+        <WordDetect attribute="Control Flow" String="end" context="#pop#pop" endRegion="switch"/>
         <IncludeRules context="Root" />
       </context>
 
@@ -742,14 +414,14 @@
 
       <context name="casebody" attribute="Normal Text" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
-        <!-- next: don't consume anything, otherwise the end of folding hides the next case -->
-        <RegExpr String="^\s*(case|end)" context="#pop#pop" endRegion="case" lookAhead="true"/>
+        <WordDetect attribute="Control Flow" String="case" context="#pop" endRegion="case" beginRegion="case" />
+        <WordDetect attribute="Control Flow" String="end" context="#pop#pop" endRegion="case" lookAhead="1"/>
         <IncludeRules context="Root" />
       </context>
 
       <context name="while" attribute="Normal Text" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
-        <StringDetect attribute="Control Flow" String="end" context="#pop" endRegion="while"/>
+        <WordDetect attribute="Control Flow" String="end" context="#pop" endRegion="while"/>
         <IncludeRules context="Root" />
       </context>
 
@@ -757,8 +429,7 @@
             this one is a collection with the common part for inclusion-->
       <context name="Arguments" attribute="Normal Text" lineEndContext="#pop">
         <DetectChar attribute="Comment" context="Comment" char="#"/>
-        <AnyChar context="#pop" String="&commandsep;" lookAhead="true"/>
-        <DetectChar context="#pop" char=")" lookAhead="true"/>
+        <AnyChar context="#pop" String="&commandsep;)" lookAhead="true"/>
         <IncludeRules context="FindArgumentsCommon" />
       </context>
 
@@ -766,7 +437,7 @@
         <LineContinue attribute="Escape" />
         <DetectSpaces attribute="Normal Text" />
         <RegExpr attribute="Option" String="-&alnumdash;*" />
-        <RegExpr attribute="Redirection" context="Redirect" String="[0-9]*(&gt;{1,2}|&lt;|\^{1,2})" />
+        <RegExpr attribute="Redirection" context="Redirect" String="[0-9]*(?:&gt;{1,2}|&lt;|\^{1,2})" />
         <DetectChar attribute="Operator" char="="/>
         <DetectChar attribute="Index" context="Subscript" char="["/>
         <IncludeRules context="FindStrings" />
@@ -783,16 +454,15 @@
         <LineContinue attribute="Escape" />
         <DetectSpaces attribute="Normal Text" context="#pop!ArgumentsNone" />
         <AnyChar context="#pop" String="&commandsep;" lookAhead="true"/> <!--consumed on the "Find"-Level-->
-        <RegExpr attribute="Error" String="[^&commandsep;]"/>
+        <RegExpr attribute="Error" String="."/>
       </context>
 
       <context name="ArgumentsNone" attribute="Normal Text" lineEndContext="#pop">
         <LineContinue attribute="Escape" />
         <DetectSpaces attribute="Normal Text" />
         <DetectChar attribute="Comment" context="Comment" char="#"/>
-        <RegExpr attribute="Redirection" context="Redirect" String="[0-9]*(&gt;{1,2}|&lt;|\^{1,2})" />
-        <AnyChar context="#pop" String="&commandsep;" lookAhead="true"/> <!--consumed on the "Find"-Level-->
-        <DetectChar context="#pop" char=")" lookAhead="true"/>
+        <RegExpr attribute="Redirection" context="Redirect" String="[0-9]*(?:&gt;{1,2}|&lt;|\^{1,2})" />
+        <AnyChar context="#pop" String="&commandsep;)" lookAhead="true"/> <!--consumed on the "Find"-Level-->
         <RegExpr attribute="Error" String="[^&commandsep;#]*"/>
       </context>
 
@@ -803,11 +473,11 @@
         <RegExpr attribute="Error" String="." context="#pop"/>
       </context>
 
-      <context name="Redirect" attribute="Redirection" fallthrough="true" fallthroughContext="#pop!DirectPath" lineEndContext="#stay">
+      <context name="Redirect" attribute="Redirection" fallthroughContext="#pop!DirectPath" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
         <DetectChar attribute="Redirection" context="#pop!DirectPath" char="?"/>
         <DetectChar attribute="Redirection" context="#pop#pop" char="|"/>
-        <RegExpr    attribute="Redirection" context="#pop!TokEnd" String="(&amp;[0-9]+|&amp;-)" />
+        <RegExpr    attribute="Redirection" context="#pop!TokEnd" String="&amp;(?:[0-9]+|-)" />
       </context>
 
       <context name="Subscript" attribute="Index" lineEndContext="#pop">
@@ -852,17 +522,17 @@
       </context>
 
       <!-- Subscript consumes anything till ], marks as Variable -->
-      <context name="CheckSubscript" attribute="Index" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop">
+      <context name="CheckSubscript" attribute="Index" lineEndContext="#pop" fallthroughContext="#pop">
         <LineContinue attribute="Escape" />
         <DetectChar attribute="Index" context="Subscript" char="["/>
       </context>
 
       <!-- Command Substitution -->
       <context name="FindSubstitutions" attribute="Normal Text" lineEndContext="#stay">
-        <StringDetect attribute="Keychar" context="CommandSubstitution" String="(" />
+        <DetectChar attribute="Keychar" context="CommandSubstitution" char="(" />
       </context>
 
-      <context name="CommandSubstitution" attribute="Normal Text" fallthrough="true" fallthroughContext="Root" lineEndContext="#stay">
+      <context name="CommandSubstitution" attribute="Normal Text" fallthroughContext="Root" lineEndContext="#stay">
         <LineContinue attribute="Escape" />
         <DetectChar attribute="Keychar" context="#pop" char=")" />
       </context>
@@ -907,19 +577,18 @@
       <!-- FindPaths for parts which might be a path. Uses the matching of a / as heuristic -->
       <!-- Might be fooled with quotes -->
       <context name="FindPaths" attribute="Path" lineEndContext="#stay">
-        <RegExpr context="DirectPath" String="&pathdetect;" lookAhead="true" />
+        <RegExpr context="DirectPath" String="&pathdetect;" lookAhead="true" minimal="1"/>
       </context>
 
       <!-- DirectPath is used at places where the next part is definitely a path -->
-      <context name="DirectPath" attribute="Path" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop!PathHead" >
+      <context name="DirectPath" attribute="Path" lineEndContext="#pop" fallthroughContext="#pop!PathHead" >
         <LineContinue attribute="Escape" />
         <DetectSpaces attribute="Normal Text" />
         <AnyChar attribute="Error" context="#pop" String="#&commandsep;&lt;&gt;^" />
       </context>
 
-      <context name="PathHead" attribute="Path" lineEndContext="#pop" fallthrough="true" fallthroughContext="#pop!Path" >
+      <context name="PathHead" attribute="Path" lineEndContext="#pop" fallthroughContext="#pop!Path" >
         <LineContinue attribute="Escape" />
-        <RegExpr attribute="HomeDir" context="#pop" String="&homedir;&white_or_eol;" />
         <RegExpr attribute="HomeDir" context="#pop!Path" String="&homedir;" />
       </context>
 
@@ -955,8 +624,7 @@
 
       <!-- FindEscapes contains various rules to mark different shell input -->
       <context name="FindEscapes" attribute="Normal Text" lineEndContext="#stay">
-        <RegExpr attribute="Escape" String="\\&escapechars;" />
-        <RegExpr attribute="Escape" String="\\([0-7]{1,3}|[xX][A-Fa-f0-9]{1,2}|u[A-Fa-f0-9]{1,4}|U[A-Fa-f0-9]{1,8}|c.)" />
+        <RegExpr attribute="Escape" String="\\(?:&escapechars;|[0-7]{1,3}|[xX][A-Fa-f0-9]{1,2}|u[A-Fa-f0-9]{1,4}|U[A-Fa-f0-9]{1,8}|c.)" />
       </context>
 
     </contexts>

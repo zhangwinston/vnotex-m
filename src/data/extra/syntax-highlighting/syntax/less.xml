@@ -5,7 +5,7 @@
   <!ENTITY nmstart "[_a-zA-Z]|(\\[0-9a-fA-F]{1,6})|(\\[^\n\r\f0-9a-fA-F])">
   <!ENTITY nmchar  "[_a-zA-Z0-9-]|(\\[0-9a-fA-F]{1,6})|(\\[^\n\r\f0-9a-fA-F])">
 ]>
-<language name="LESSCSS" version="5" kateversion="5.53" section="Markup" extensions="*.less" mimetype="text/css"
+<language name="LESSCSS" version="8" kateversion="5.53" section="Markup" extensions="*.less" mimetype="text/css"
           author="from CCS:Wilbert Berendsen (wilbert@kde.nl)" license="LGPL">
     <!--
     Version 3 (2017-05-10):
@@ -284,10 +284,8 @@
 
             <!-- find comments // /* comment */  // comment -->
             <context attribute="Normal Text" lineEndContext="#stay" name="FindComments">
-                <RegExpr attribute="Region Marker" context="#stay" String="/\*BEGIN.*\*/" beginRegion="UserDefined"/>
-                <RegExpr attribute="Region Marker" context="#stay" String="//\s*BEGIN.*" beginRegion="UserDefined"/>
-                <RegExpr attribute="Region Marker" context="#stay" String="/\*END.*\*/" endRegion="UserDefined"/>
-                <RegExpr attribute="Region Marker" context="#stay" String="//\s*END.*" endRegion="UserDefined"/>
+                <RegExpr attribute="Region Marker" context="#stay" String="/\*BEGIN.*\*/|//\s*BEGIN.*" beginRegion="UserDefined"/>
+                <RegExpr attribute="Region Marker" context="#stay" String="/\*END.*\*/|//\s*END.*" endRegion="UserDefined"/>
                 <Detect2Chars attribute="Comment" context="Comment" char="/" char1="*" beginRegion="comment"/>
                 <Detect2Chars attribute="Comment" context="LessComment" char="/" char1="/" />
             </context>
@@ -348,23 +346,25 @@
                 <DetectChar attribute="Normal Text" char=")" context="#pop#pop"/>
             </context>
 
-            <context attribute="Comment" lineEndContext="#pop" name="LessComment"></context>
+            <context attribute="Comment" lineEndContext="#pop" name="LessComment">
+                <DetectSpaces />
+                <IncludeRules context="##Comments"/>
+            </context>
 
             <context attribute="Comment" lineEndContext="#stay" name="Comment">
                 <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="comment"/>
 
-                <IncludeRules context="##Alerts"/>
+                <DetectSpaces />
+                <IncludeRules context="##Comments"/>
             </context>
 
             <context attribute="Normal Text" lineEndContext="#stay" name="RuleSet">
                 <DetectChar attribute="Normal Text" char="{" context="RuleSet" beginRegion="ruleset"/>
                 <DetectChar attribute="Normal Text" char="}" context="#pop" endRegion="ruleset"/>
                 <!-- find CSS property, like border-radius with optional + or +- decorators -->
-                <RegExpr attribute="Property" context="Rule" String="-?[A-Za-z_\-]+(?=\s*(\+|\+_)?\s*:)"
-                         lookAhead="true"/>
                 <!-- as above, but include support for interpolation -->
                 <RegExpr attribute="Property" context="Rule"
-                         String="-?[A-Za-z_\-]*@{\s*[a-zA-Z0-9\-_]+}[A-Za-z_\-]*(?=\s*(\+|\+_)?\s*:)" lookAhead="true"
+                         String="-?[A-Za-z_\-]+(?=\s*(\+|\+_)?\s*:)|-?[A-Za-z_\-]*@{\s*[a-zA-Z0-9\-_]+}[A-Za-z_\-]*(?=\s*(\+|\+_)?\s*:)" lookAhead="true"
                          />
 
                 <IncludeRules context="Base"/>
@@ -453,7 +453,9 @@
     <general>
         <keywords casesensitive="0" weakDeliminator="-%"/>
         <comments>
-            <comment name="multiLine" start="/*" end="*/" />
+            <comment name="multiLine" start="/*" end="*/" region="comment"/>
+            <comment name="singleLine" start="//" position="afterwhitespace"/>
         </comments>
     </general>
 </language>
+<!-- kate: replace-tabs on; tab-width 4; indent-width 4; -->

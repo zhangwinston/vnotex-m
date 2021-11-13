@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
 <!-- Nemerle syntax highlighting v0.2 by caminoix, approved of and corrected by Kamil Skalski (Nazgul) -->
-<language name="Nemerle" version="1" kateversion="2.3" section="Sources" extensions="*.n" mimetype="text/x-nemerle" casesensitive="1" author="caminoix + Kamil Skalski (Nazgul)" license="">
+<language name="Nemerle" version="5" kateversion="5.0" section="Sources" extensions="*.n" mimetype="text/x-nemerle" casesensitive="1" author="caminoix + Kamil Skalski (Nazgul)" license="">
 	<highlighting>
 		<list name="Attributes">
 			<item>abstract</item>
@@ -119,8 +119,8 @@
 
 		<contexts>
 			<context name="Normal" attribute="Normal Text" lineEndContext="#stay">
-				<StringDetect attribute="Comment" context="SingleLineComment" String="//" />
-				<StringDetect attribute="Comment" context="MultiLineComment" String="/*" />
+				<Detect2Chars attribute="Comment" context="SingleLineComment" char="/" char1="/" />
+				<Detect2Chars attribute="Comment" context="MultiLineComment" char="/" char1="*" beginRegion="BlockComment" />
 				<DetectChar attribute="String" context="NormalString" char="&quot;" />
 				<Detect2Chars attribute="String" context="StringInterpolation" char="$" char1="&quot;" />
 
@@ -143,10 +143,14 @@
 			</context>
 
 			<context name="SingleLineComment" attribute="Comment" lineEndContext="#pop">
-				<StringDetect attribute="Comment" String="//" context="#pop" />
+				<Detect2Chars attribute="Comment" char="/" char1="/" context="#pop" />
+				<DetectSpaces />
+				<IncludeRules context="##Comments" />
 			</context>
 			<context name="MultiLineComment" attribute="Comment" lineEndContext="#stay">
-				<StringDetect attribute="Comment" String="*/" context="#pop" />
+				<Detect2Chars attribute="Comment" char="*" char1="/" context="#pop" endRegion="BlockComment" />
+				<DetectSpaces />
+				<IncludeRules context="##Comments" />
 			</context>
 
 			<context name="NormalString" attribute="String" lineEndContext="#stay">
@@ -166,8 +170,7 @@
 
 			<context name="StringInterpolation" attribute="String" lineEndContext="#stay">
 				<DetectChar attribute="String" char="&quot;" context="#pop" />
-				<RegExpr attribute="EscapeSequence" context="#stay" String="\{[0-9]+\}" />
-				<RegExpr attribute="EscapeSequence" context="#stay" String="\$(\S)+\s" />
+				<RegExpr attribute="EscapeSequence" context="#stay" String="\{[0-9]+\}|\$(\S)+\s" />
 
 				<Detect2Chars attribute="EscapeSequence" context="#stay" char="\" char1="&quot;" />
 				<Detect2Chars attribute="EscapeSequence" context="#stay" char="\" char1="\" />
@@ -202,7 +205,8 @@
 	<general>
 		<comments>
 			<comment name="singleLine" start="//" />
-			<comment name="multiLine" start="/*" end="*/" />
+			<comment name="multiLine" start="/*" end="*/" region="BlockComment" />
 		</comments>
 	</general>
 </language>
+<!-- kate: replace-tabs off; -->

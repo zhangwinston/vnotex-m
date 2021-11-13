@@ -28,7 +28,7 @@
 
   <!ENTITY url "(http:|https:|ftp:|mailto:)[^]|) ]*(?=$|[]|\s|\)])">
 ]>
-<language name="Jira" section="Markup" version="7" kateversion="5.53" extensions="*.jira" mimetype="" license="FDL" >
+<language name="Jira" section="Markup" version="12" kateversion="5.79" extensions="*.jira" mimetype="" license="FDL" >
   <highlighting>
 
     <!--
@@ -82,13 +82,12 @@
         <DetectChar char="!" attribute="Special Character" context="EmbeddedItemContent" />
       </context>
       <context name="EmbeddedItemContent" attribute="Green" lineEndContext="#stay">
-        <DetectChar char=":" attribute="Special Character" context="#stay" />
-        <DetectChar char="^" attribute="Special Character" context="#stay" />
+        <AnyChar String=":^" attribute="Special Character" context="#stay" />
         <DetectChar char="|" attribute="Special Character" context="EmbeddedItemAttributes" />
         <DetectChar char="!" attribute="Special Character" context="#pop#pop" />
       </context>
       <context name="EmbeddedItemAttributes" attribute="Normal" lineEndContext="#stay">
-        <RegExpr String="&embeddedItemAttributeAndValue;" context="EmbeddedItemAttributeAndValue" lookAhead="true" />
+        <RegExpr String="&embeddedItemAttributeAndValue;" context="EmbeddedItemAttributeAndValue" lookAhead="true" minimal="1" />
         <RegExpr String="\w+" attribute="AttributeKeyword" context="#stay" />
         <DetectChar char="!" attribute="Special Character" context="#pop#pop#pop" />
       </context>
@@ -113,7 +112,7 @@
         <StringDetect String="{panel}" attribute="Special Character" context="#pop#pop#pop" />
       </context>
       <context name="PanelAttributes" attribute="Normal" lineEndContext="#stay">
-        <RegExpr String="&panelAttributeAndValue;" context="PanelAttributeAndValue" lookAhead="true" />
+        <RegExpr String="&panelAttributeAndValue;" context="PanelAttributeAndValue" lookAhead="true" minimal="1" />
         <DetectChar char="}" context="#pop" lookAhead="true" />
       </context>
       <context name="PanelAttributeAndValue" attribute="AttributeKeyword" lineEndContext="#stay">
@@ -156,7 +155,7 @@
       </context>
 
       <context name="CodeAttributes" attribute="Normal" lineEndContext="#stay">
-        <RegExpr String="&codeAttributeAndValue;" context="CodeAttributeAndValue" lookAhead="true" />
+        <RegExpr String="&codeAttributeAndValue;" context="CodeAttributeAndValue" lookAhead="true" minimal="1" />
         <RegExpr String="&codeAttribute;" attribute="AttributeKeyword" />
         <DetectChar char="}" context="#pop" lookAhead="true" />
       </context>
@@ -173,9 +172,9 @@
         <DetectChar char=":" attribute="Special Character" context="CodeAttributes" />
         <DetectChar char="}" attribute="Special Character" context="BashCodeContent" />
       </context>
-      <context name="BashCodeContent" attribute="Normal" lineEndContext="#stay">
+      <context name="BashCodeContent" attribute="Normal" lineEndContext="#stay" fallthroughContext="Command##Bash">
         <StringDetect String="{code}" attribute="Special Character" context="#pop#pop#pop" />
-        <IncludeRules context="Start##Bash" />
+        <IncludeRules context="##Bash" />
       </context>
 
       <context name="CSharpCodeStartTagContent" attribute="Green" lineEndContext="#stay">
@@ -566,7 +565,7 @@
 
       <!-- BlockQuotes -->
       <context name="FindBlockQuote" attribute="Normal" lineEndContext="#stay" >
-        <RegExpr String="bq\. " context="BlockQuote" attribute="Special Character" column="0" />
+        <StringDetect String="bq. " context="BlockQuote" attribute="Special Character" column="0" />
       </context>
 
       <!-- Colors -->
@@ -576,7 +575,7 @@
 
       <!-- Headings -->
       <context name="FindHeader" attribute="Normal" lineEndContext="#stay" >
-        <RegExpr String="h[1-6]\. " context="Header" attribute="Special Character" column="0" />
+        <RegExpr String="^h[1-6]\. " context="Header" attribute="Special Character" column="0" />
       </context>
 
       <!-- Quotes -->
@@ -610,7 +609,7 @@
 
       <!-- Lists -->
       <context name="FindListItem" attribute="Normal" lineEndContext="#stay" >
-        <RegExpr String="([*#]*[*#]+|-)" attribute="Special Character" context="#stay" column="0" />
+        <RegExpr String="^([*#]+|-)" attribute="Special Character" context="#stay" column="0" />
       </context>
 
       <!-- Text Effects -->
@@ -627,8 +626,8 @@
 
       <!-- Tables -->
       <context name="FindTables" attribute="Normal" lineEndContext="#stay" >
-        <RegExpr String="^\|\|" context="TableHeaderRow" lookAhead="true" />
-        <RegExpr String="^\|" context="TableRegularRow" lookAhead="true" />
+        <Detect2Chars char="|" char1="|" context="TableHeaderRow" lookAhead="true" column="0" />
+        <DetectChar char="|" context="TableRegularRow" lookAhead="true" column="0" />
       </context>
 
       <!-- No format -->
@@ -653,16 +652,16 @@
 
       <!-- Line Breaks -->
       <context name="FindLineBreaks" attribute="Normal" lineEndContext="#stay" >
-        <RegExpr String="\\$" attribute="Special Character" />
+        <LineContinue attribute="Special Character" />
       </context>
 
       <!-- Icons -->
       <context name="FindIcons" attribute="Normal" lineEndContext="#stay" >
-        <StringDetect String=":)" attribute="Special Character" />
-        <StringDetect String=":(" attribute="Special Character" />
-        <StringDetect String=":P" attribute="Special Character" />
-        <StringDetect String=":D" attribute="Special Character" />
-        <StringDetect String=";)" attribute="Special Character" />
+        <Detect2Chars char=":" char1=")" attribute="Special Character" />
+        <Detect2Chars char=":" char1="(" attribute="Special Character" />
+        <Detect2Chars char=":" char1="P" attribute="Special Character" />
+        <Detect2Chars char=":" char1="D" attribute="Special Character" />
+        <Detect2Chars char=";" char1=")" attribute="Special Character" />
         <StringDetect String="(y)" attribute="Special Character" />
         <StringDetect String="(n)" attribute="Special Character" />
         <StringDetect String="(i)" attribute="Special Character" />

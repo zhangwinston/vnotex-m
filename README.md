@@ -1,6 +1,23 @@
 # VNote
 ![CI-Windows](https://github.com/vnotex/vnote/workflows/CI-Windows/badge.svg) ![CI-Linux](https://github.com/vnotex/vnote/workflows/CI-Linux/badge.svg) ![CI-MacOS](https://github.com/vnotex/vnote/workflows/CI-MacOS/badge.svg)
 
+个人定制版本主要改动：
+1. 编辑器的行间距可配置调整  
+  用户配置文件设置，文本行间距，缺省为0.5；代码行间距，缺省为0.2。  
+  自行编译需要结合配套的vtextedit-m的定制化修改。  
+
+2. 界面图标和界面的微调  
+  基于开源免费svg调整了界面图标。  
+
+3. 当前tab页的文件名粗体显示  
+
+4. 防盗链网页的图片下载功能  
+  在文档头部手工填写referer信息，例如：@@https://cloud.tencent.com/，即可下载相关图片。  
+
+5. syntax-highlighting组件升级  
+  从5.62升级到5.87，支持的高亮语法类型数量倒是有增加，从原来的311个，增加到333个；另外就是高亮的主题数量也有所增加，从原来的7个增加到24个。  
+  自行编译需要结合对应的syntax-highlighting组件。  
+
 [简体中文](README_zh_CN.md)
 
 A pleasant note-taking platform.

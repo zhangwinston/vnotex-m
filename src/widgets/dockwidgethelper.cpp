@@ -300,6 +300,10 @@ void DockWidgetHelper::postSetup()
     updateDockWidgetTabBar();
 
     for (const auto dock : m_docks) {
+        //zhangyw add after expand is over, the tabbar icon is not visible
+        connect(dock, &QDockWidget::visibilityChanged,
+                this, &DockWidgetHelper::updateDockWidgetTabBar);
+        //zhangyw add
         connect(dock, &QDockWidget::dockLocationChanged,
                 this, &DockWidgetHelper::updateDockWidgetTabBar);
         connect(dock, &QDockWidget::topLevelChanged,

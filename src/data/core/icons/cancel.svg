@@ -1,1 +1,6 @@
-<?xml version="1.0" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg t="1616726105805" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1116" width="512" height="512" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><style type="text/css"></style></defs><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448 448-200.6 448-448S759.4 64 512 64z m0 820c-205.4 0-372-166.6-372-372 0-89 31.3-170.8 83.5-234.8l523.3 523.3C682.8 852.7 601 884 512 884z m288.5-137.2L277.2 223.5C341.2 171.3 423 140 512 140c205.4 0 372 166.6 372 372 0 89-31.3 170.8-83.5 234.8z" p-id="1117" fill="#000000"></path></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+<path d="M128,19.3c60,0,108.7,48.8,108.7,108.7S188,236.7,128,236.7S19.3,188,19.3,128S68,19.3,128,19.3 M128,2.6
+	C58.7,2.6,2.6,58.7,2.6,128S58.7,253.4,128,253.4c69.3,0,125.4-56.1,125.4-125.4S197.3,2.6,128,2.6L128,2.6z" fill="#000"/>
+<path d="M87,86.5h83.6v84H87V86.5z" fill="#000"/>
+</svg>

@@ -1226,6 +1226,12 @@ QToolBar *ViewWindow::createToolBar(QWidget *p_parent)
     auto extBtn = toolBar->findChild<QToolButton *>(QLatin1String("qt_toolbar_ext_button"));
     Q_ASSERT(extBtn);
     */
+        //zhangyw add
+    if(iconSize==0)
+    {
+        toolBar->setVisible(false);
+    }
+    //zhangyw add
 
     return toolBar;
 }

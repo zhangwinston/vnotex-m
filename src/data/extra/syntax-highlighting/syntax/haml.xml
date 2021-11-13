@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE language SYSTEM "language.dtd">
-<language name="Haml" version="7" kateversion="5.0" section="Markup"
+<language name="Haml" version="12" kateversion="5.0" section="Markup"
           extensions="*.haml"
           author="Cies Breijs (cies_at_kde_nl)" license="LGPL"
           mimetype="text/x-haml">
@@ -157,16 +157,10 @@
       <item>warn</item>
     </list>
 
-    <list name="attention">
-      <item>TODO</item>
-      <item>FIXME</item>
-      <item>NOTE</item>
-    </list>
-
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="normal" >
-        <RegExpr attribute="Error" firstNonSpace="false" context="#stay" String="^[ ]{1}([ ]{2})*[^ ]+" />
-        <RegExpr attribute="Doctype" context="#stay" String="^!!!.*$"/>
+        <RegExpr attribute="Error" firstNonSpace="false" context="#stay" String="^ (  )*[^ ]+" column="0" />
+        <StringDetect attribute="Doctype" context="Doctype" String="!!!" column="0"/>
 
 <!--         2 failed attempts to implement multiline comments -->
 
@@ -185,9 +179,7 @@
         <DetectChar attribute="Comment" context="comment" char="/" />
 
         <Detect2Chars attribute="Keyword" context="unquoted" char="=" char1="=" />
-        <DetectChar attribute="Keyword" context="rubysourceline" char="=" />
-        <DetectChar attribute="Keyword" context="rubysourceline" char="-" />
-        <DetectChar attribute="Keyword" context="rubysourceline" char="~" />
+        <AnyChar attribute="Keyword" context="rubysourceline" String="=-~" />
         <Detect2Chars attribute="Keyword" context="rubysourceline" char="!" char1="=" />
         <Detect2Chars attribute="Keyword" context="rubysourceline" char="&amp;" char1="=" />
 
@@ -221,14 +213,14 @@
 
 <!--      <context attribute="Comment" lineEndContext="#pop" name="comment0">
         <DetectSpaces/>
-        <IncludeRules context="##Alerts" />
+        <IncludeRules context="##Comments" />
         <DetectIdentifier/>
 <!- - was commented out         <RegExpr attribute="Comment" context="#pop" String="^[^/ ]" endRegion="comment" />  attempt for multiline comments  - ->
       </context>
 -->
 <!--      <context attribute="Comment" lineEndContext="#pop" name="comment2">
         <DetectSpaces/>
-        <IncludeRules context="##Alerts" />
+        <IncludeRules context="##Comments" />
         <DetectIdentifier/>
         <RegExpr attribute="Comment" context="#pop" String="^[ ]{2}[^ /]" endRegion="comment" />
       </context>-->
@@ -236,7 +228,7 @@
 
       <context attribute="Comment" lineEndContext="#pop" name="comment">
         <DetectSpaces/>
-        <IncludeRules context="##Alerts" />
+        <IncludeRules context="##Comments" />
         <DetectIdentifier/>
         <StringDetect attribute="Comment" context="#pop" String="--&gt;" endRegion="comment" />
       </context>
@@ -290,8 +282,7 @@
         <!-- (global) vars starting with $
           Match them before $_.
           -->
-        <RegExpr attribute="Global Variable" String="\$[a-zA-Z_0-9]+" context="#stay"/>
-        <RegExpr attribute="Global Variable" String="\$\-[a-zA-Z_]\b" context="#stay"/>
+        <RegExpr attribute="Global Variable" String="\$[a-zA-Z_0-9]+|\$\-[a-zA-Z_]\b" context="#stay"/>
         <!-- special-character globals -->
         <RegExpr attribute="Default globals" String="\$[\d_*`\!:?'/\\\-\&amp;]" context="#stay"/>
         <RegExpr attribute="Global Constant" String="\b[_A-Z]+[A-Z_0-9]+\b" context="#stay"/>
@@ -312,12 +303,8 @@
         <DetectChar attribute="Operator" char="." context="#stay"/>
         <Detect2Chars attribute="Operator" char="&amp;" char1="&amp;" context="#stay"/>
         <Detect2Chars attribute="Operator" char="|" char1="|" context="#stay"/>
-        <RegExpr attribute="Operator" String="\s[\?\:\%/]\s" context="#stay"/>
-        <RegExpr attribute="Operator" String="[|&amp;&lt;&gt;\^\+*~\-=]+" context="#stay"/>
-        <!-- regexp hack -->
-        <RegExpr attribute="Operator" String="\s!" context="#stay"/>
-        <RegExpr attribute="Operator" String="/=\s" context="#stay" insensitive="0"/>
-        <StringDetect attribute="Operator" String="%=" context="#stay" insensitive="0"/>
+        <RegExpr attribute="Operator" String="\s[\?\:\%/]\s|[|&amp;&lt;&gt;\^\+*~\-=]+|\s!|/=\s" context="#stay"/>
+        <Detect2Chars attribute="Operator" char="%" char1="=" context="#stay"/>
         <Detect2Chars attribute="Operator" char=":" char1=":" context="Member Access"/>
 
         <RegExpr attribute="Symbol" String=":[a-zA-Z_][a-zA-Z0-9_]*" context="#stay"/>
@@ -326,11 +313,11 @@
         <DetectChar attribute="Raw String" char="'" context="Apostrophed String"/>
         <DetectChar attribute="Command" char="`" context="Command String"/>
 
-        <StringDetect attribute="Normal Text" String="?#" context="#stay"/>
+        <Detect2Chars attribute="Normal Text" char="?" char1="#" context="#stay"/>
 
-        <RegExpr attribute="Comment" String="#\s*BEGIN.*$"  context="#stay" beginRegion="marker" column="0"/>
-        <RegExpr attribute="Comment" String="#\s*END.*$"  context="#stay" endRegion="marker" column="0"/>
-        <RegExpr attribute="Comment" String="#"  context="General Comment"/>
+        <RegExpr attribute="Comment" String="^#\s*BEGIN.*$"  context="#stay" beginRegion="marker" column="0"/>
+        <RegExpr attribute="Comment" String="^#\s*END.*$"  context="#stay" endRegion="marker" column="0"/>
+        <DetectChar attribute="Comment" char="#"  context="General Comment"/>
 
         <RegExpr attribute="Delimiter" String="[\[\]]+"  context="#stay"/>
         <DetectChar attribute="Delimiter" char="{" context="#stay" beginRegion="def block"/>
@@ -344,15 +331,15 @@
       </context>
 
       <context name="Line Continue" attribute="Ruby Normal Text" lineEndContext="#pop">
-        <RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)" context="#stay" firstNonSpace="true"/>
-        <RegExpr attribute="Keyword" String="(if|unless)\b" context="#stay" firstNonSpace="true"/>
+        <RegExpr attribute="Keyword" String="(while|until)\b(?!.*\bdo\b)|(if|unless)\b" context="#stay" firstNonSpace="true"/>
         <IncludeRules context="rubysource"/>
       </context>
 
       <context name="Quoted String" attribute="String" lineEndContext="#stay">
-        <StringDetect attribute="String" String="\\" context="#stay"/>
-        <RegExpr attribute="String" String="\\\&quot;" context="#stay"/>
-        <RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
+        <Detect2Chars attribute="String" char="\" char1="\" context="#stay"/>
+        <Detect2Chars attribute="String" char="\" char1="&quot;" context="#stay"/>
+        <StringDetect attribute="Substitution" String="#@@" context="Short Subst"/>
+        <Detect2Chars attribute="Substitution" char="#" char1="@" context="Short Subst"/>
         <Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
         <!--HlCChar attribute="Char" context="#pop"/-->
         <DetectChar char="&quot;" attribute="String" context="#pop"/>
@@ -360,15 +347,16 @@
 
       <context name="Apostrophed String" attribute="Raw String" lineEndContext="#stay">
         <!-- <HlCChar attribute="Char" context="#pop"/> -->
-        <StringDetect attribute="String" String="\\" context="#stay"/>
-        <RegExpr attribute="String" String="\\\'" context="#stay"/>
+        <Detect2Chars attribute="String" char="\" char1="\" context="#stay"/>
+        <Detect2Chars attribute="String" char="\" char1="'" context="#stay"/>
         <DetectChar char="'" attribute="Raw String" context="#pop"/>
       </context>
 
       <context name="Command String" attribute="Command" lineEndContext="#stay">
-        <StringDetect attribute="String" String="\\" context="#stay"/>
-        <RegExpr attribute="String" String="\\\`" context="#stay"/>
-        <RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
+        <Detect2Chars attribute="String" char="\" char1="\" context="#stay"/>
+        <Detect2Chars attribute="String" char="\" char1="'" context="#stay"/>
+        <StringDetect attribute="Substitution" String="#@@" context="Short Subst"/>
+        <Detect2Chars attribute="Substitution" char="#" char1="@" context="Short Subst"/>
         <Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
         <HlCChar attribute="Char" context="#pop"/>
         <DetectChar char="`" attribute="Command" context="#pop"/>
@@ -376,12 +364,15 @@
 
       <context name="Embedded documentation" attribute="Ruby Comment" lineEndContext="#stay">
         <StringDetect attribute="Ruby Comment" String="=end" context="#pop" endRegion="comment block" column="0"/>
+        <DetectSpaces />
+        <IncludeRules context="##Comments"/>
       </context>
 
       <context name="RegEx 1" attribute="Regular Expression" lineEndContext="#stay">
-        <RegExpr attribute="Regular Expression" String="\\\/" context="#stay"/>
+        <Detect2Chars attribute="Regular Expression" char="\" char1="/" context="#stay"/>
         <RegExpr attribute="Regular Expression" String="[^\\]$" context="#pop"/>
-        <RegExpr attribute="Substitution" String="#@{1,2}" context="Short Subst"/>
+        <StringDetect attribute="Substitution" String="#@@" context="Short Subst"/>
+        <Detect2Chars attribute="Substitution" char="#" char1="@" context="Short Subst"/>
         <Detect2Chars attribute="Substitution" char="#" char1="{" context="Subst"/>
         <RegExpr attribute="Regular Expression" String="/[uiomxn]*" context="#pop"/>
       </context>
@@ -395,7 +386,8 @@
 
       <context name="Short Subst" attribute="Substitution" lineEndContext="#pop">
         <!-- Check for e.g.: "#@var#@@xy" -->
-        <RegExpr attribute="Substitution" String="#@{1,2}" context="#stay"/>
+        <StringDetect attribute="Substitution" String="#@@" context="#stay"/>
+        <Detect2Chars attribute="Substitution" char="#" char1="@" context="#stay"/>
         <RegExpr attribute="Substitution" String="\w(?!\w)" context="#pop"/>
       </context>
 
@@ -418,8 +410,11 @@
       </context>
 
       <context name="General Comment" attribute="Ruby Comment" lineEndContext="#pop">
-        <keyword attribute="Dec" String="attention" context="#stay"/>
+        <DetectSpaces />
+        <IncludeRules context="##Comments"/>
       </context>
+
+      <context name="Doctype" attribute="Doctype" lineEndContext="#pop"/>
     </contexts>
 
 
@@ -490,11 +485,12 @@
   <general>
     <folding indentationsensitive="1" />
     <emptyLines>
-      <emptyLine regexpr="\s+" casesensitive="false"/>
+      <emptyLine regexpr="\s+"/>
     </emptyLines>
     <comments>
-      <comment name="singleLine" start="/"/>
+      <comment name="singleLine" start="/" position="afterwhitespace"/>
     </comments>
     <keywords casesensitive="1"/>
   </general>
 </language>
+<!-- kate: replace-tabs on; tab-width 2; indent-width 2; -->

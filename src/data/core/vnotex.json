@@ -62,7 +62,7 @@
             "OpenLastClosedFile" : "Ctrl+Shift+T"
         },
         "toolbar_icon_size" : 16,
-        "docks_tabbar_icon_size" : 24,
+        "docks_tabbar_icon_size" : 20,
         "note_management" : {
             "external_node" : {
                 "//comment" : "Wildcard patterns of files and folders to exclude as external files",
@@ -353,6 +353,8 @@
             "smart_table" : true,
             "//comment" : "Time interval (milliseconds) to do smart table formatting",
             "smart_table_interval" : 1000,
+            "leading_space_line_code_block_factor": 0.2,
+            "leading_space_line_factor": 0.5,
             "spell_check" : false,
             "editor_overridden_font_family" : "",
             "//comment" : "Sources to enable inplace preview, separated by ;",

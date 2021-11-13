@@ -8,6 +8,9 @@
 #include <buffer/buffer.h>
 #include <core/global.h>
 
+#include <QStyleOptionTab>
+#include <QStylePainter>
+
 class QToolButton;
 class QMenu;
 class QActionGroup;
@@ -17,7 +20,48 @@ namespace vnotex
     class ViewWindow;
     struct ViewWorkspace;
 
-    class ViewSplit : public QTabWidget
+    class TabBar: public QTabBar
+    {
+    public:
+        TabBar(QWidget *parent=0):QTabBar(parent){
+        }
+
+    protected:
+        void paintEvent(QPaintEvent *){
+
+            QStylePainter painter(this);
+            QStyleOptionTab opt;
+            QFont font=this->font();
+
+            for(int i = 0;i < count();i++)
+            {
+                initStyleOption(&opt,i);
+                painter.drawControl(QStyle::CE_TabBarTabShape, opt);
+                if(QStyle::State_Selected & opt.state)
+                {
+                    painter.save();
+                    font.setBold( true );
+                    painter.setFont(font);
+                    painter.drawControl(QStyle::CE_TabBarTabLabel,opt);
+                    painter.restore();
+                    continue;
+                }
+                else
+                    painter.drawControl(QStyle::CE_TabBarTabLabel,opt);
+           }
+        }
+    };
+
+    class TabWidget : public QTabWidget
+    {
+    public:
+        TabWidget(QWidget *parent=0):QTabWidget(parent){
+            setTabBar(new TabBar(parent));
+        }
+    };
+
+    //class ViewSplit : public QTabWidget
+    class ViewSplit : public TabWidget
     {
         Q_OBJECT
     public:
