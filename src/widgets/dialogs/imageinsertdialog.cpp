@@ -37,11 +37,14 @@ ImageInsertDialog::ImageInsertDialog(const QString &p_title,
                                      const QString &p_imageTitle,
                                      const QString &p_imageAlt,
                                      const QString &p_imagePath,
+                                     const QString &p_referer,
                                      bool p_browserEnabled,
                                      QWidget *p_parent)
     : Dialog(p_parent),
       m_browserEnabled(p_browserEnabled)
 {
+    m_referer=p_referer;
+
     m_imagePathCheckTimer = new QTimer(this);
     m_imagePathCheckTimer->setSingleShot(true);
     m_imagePathCheckTimer->setInterval(500);
@@ -209,7 +212,16 @@ void ImageInsertDialog::checkImagePathInput()
                     this, &ImageInsertDialog::handleImageDownloaded);
         }
 
-        m_downloader->requestAsync(url);
+        //zhangyw add
+        vte::NetworkAccess::RawHeaderPairs rawHeader;
+        if(m_referer!=NULL){
+            rawHeader.push_back(qMakePair(QByteArray("referer"),m_referer.toUtf8()));
+        }
+        //zhangyw add
+
+        //zhangyw modify
+        m_downloader->requestAsync(url, rawHeader);
+        //m_downloader->requestAsync(url);
     }
 
     m_imageTitleEdit->setText(QFileInfo(text).baseName());

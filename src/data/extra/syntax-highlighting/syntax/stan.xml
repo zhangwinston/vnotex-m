@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 <language name="Stan"
           section="Scientific"
-          version="1"
+          version="4"
           kateversion="5.0"
           indenter="cstyle"
           extensions="*.stan;*.stanfuncs"
@@ -70,12 +70,19 @@
         <DetectChar attribute="String" context="#pop" char="&quot;"/>
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="Hash comment">
+        <DetectSpaces />
+        <IncludeRules context="##Comments" />
       </context>
       <context attribute="Comment" lineEndContext="#pop" name="C-style comment">
+        <DetectSpaces />
+        <IncludeRules context="##Comments" />
       </context>
       <context attribute="Comment" lineEndContext="#stay" name="Block comment">
-        <RegExpr attribute="Doc Tag" String="@(return|param)\b" context="#stay" />
+        <DetectSpaces />
         <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+        <WordDetect attribute="Doc Tag" String="@return" context="#stay" />
+        <WordDetect attribute="Doc Tag" String="@param" context="#stay" />
+        <IncludeRules context="##Comments" />
       </context>
       <context attribute="Normal Text" name="After comma" lineEndContext="#stay" fallthrough="true" fallthroughContext="#pop" >
         <DetectSpaces />
@@ -91,11 +98,11 @@
         <RegExpr context="Truncation" String="T\s*\[" lookAhead="true" />
       </context>
       <context attribute="Normal Text" name="Upper Bound" lineEndContext="#stay" >
-        <RegExpr attribute="Keyword" String="upper" context="#stay" />
+        <StringDetect attribute="Keyword" String="upper" context="#stay" />
         <DetectChar attribute="Punctuation" char="=" context="#pop" />
       </context>
       <context attribute="Normal Text" name="Lower Bound" lineEndContext="#stay" >
-        <RegExpr attribute="Keyword" String="lower" context="#stay" />
+        <StringDetect attribute="Keyword" String="lower" context="#stay" />
         <DetectChar attribute="Punctuation" char="=" context="#pop" />
       </context>
       <context attribute="Normal Text" name="Truncation" lineEndContext="#stay" >
@@ -122,8 +129,9 @@
   <general>
     <comments>
       <comment name="singleLine" start="//" />
-      <comment name="multiLine" start="/*" end="*/" />
+      <comment name="multiLine" start="/*" end="*/" region="Comment" />
     </comments>
     <keywords casesensitive="1" />
   </general>
 </language>
+<!-- kate: replace-tabs on; tab-width 2; indent-width 2; -->

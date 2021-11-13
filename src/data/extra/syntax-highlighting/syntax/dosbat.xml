@@ -8,7 +8,7 @@
         <!ENTITY eop      "(?=([\s\\;&quot;&#37;]|$))">         <!-- end of path -->
         <!ENTITY pathpart "[^\s\\&#37;;/:\*\?&quot;&gt;&lt;\|]"> <!-- valid character in a file name -->
 ]>
-<language name="MS-DOS Batch" version="3" kateversion="5.0" section="Scripts" extensions="*.bat" mimetype="application/x-dos" casesensitive="0" author="Matthew Woehlke (mw_triad@users.sourceforge.net)" license="LGPL">
+<language name="MS-DOS Batch" version="6" kateversion="5.0" section="Scripts" extensions="*.bat" mimetype="application/x-dos" casesensitive="0" author="Matthew Woehlke (mw_triad@users.sourceforge.net)" license="LGPL">
 
 <!-- (c) 2006, 2009, 2010 Matthew Woehlke (mw_triad@users.sourceforge.net)
     Released under the LGPL -->
@@ -102,7 +102,7 @@
     <contexts>
       <context attribute="Normal Text" lineEndContext="#stay" name="Start">
         <!-- general syntactical stuff -->
-        <RegExpr attribute="Comment" context="Comment" String="^\s*[Rr][Ee][Mm](\s|$)"/>
+        <RegExpr attribute="Comment" context="Comment" String="rem(?=\s|$)" insensitive="true" firstNonSpace="true"/>
         <keyword attribute="Builtin" context="Command" String="builtins"/>
         <keyword attribute="Command" context="Command" String="commands"/>
         <DetectChar attribute="Label" context="Label" char=":" firstNonSpace="true"/>
@@ -131,10 +131,7 @@
         <RegExpr attribute="Redirection" context="Path" String="[0-9]*(&gt;&gt;?|&lt;)\s*"/>
         <DetectChar attribute="Redirection" context="Start" char="|"/>
         <!-- handle paths -->
-        <RegExpr attribute="Path" context="#stay" String="[.]+&eop;"/>
-        <RegExpr attribute="Path" context="#stay" String="[A-Za-z][A-Za-z.]*:"/>
-        <RegExpr attribute="Path" context="#stay" String="&pathpart;+(?=\\)"/>
-        <RegExpr attribute="Path" context="#stay" String="[.]*\\+&pathpart;*&eop;"/>
+        <RegExpr attribute="Path" context="#stay" String="[.]+&eop;|[A-Za-z][A-Za-z.]*:|&pathpart;+(?=\\)|[.]*\\+&pathpart;*&eop;"/>
       </context>
 
       <context attribute="Normal Text" lineEndContext="#stay" name="FindStrings">
@@ -143,13 +140,13 @@
 
       <context attribute="Normal Text" lineEndContext="#stay" name="FindSubstitutions">
         <Detect2Chars attribute="Escape" context="#stay" char="&#37;" char1="&#37;"/>
-        <RegExpr attribute="Variable" context="#stay" String="([&#37;!])[^&#37;\s!]+\1"/>
-        <RegExpr attribute="Variable" context="#stay" String="[&#37;!][a-z0-9]" insensitive="true"/>
+        <RegExpr attribute="Variable" context="#stay" String="([&#37;!])[^&#37;\s!]+\1|[&#37;!][a-zA-Z0-9]" insensitive="true"/>
       </context>
 
       <!-- basic sub-contexts -->
       <context attribute="Comment" lineEndContext="#pop" name="Comment">
-        <IncludeRules context="##Alerts"/>
+        <DetectSpaces />
+        <IncludeRules context="##Comments"/>
       </context>
 
       <context attribute="String" lineEndContext="#pop" name="String">
@@ -307,3 +304,4 @@
     <keywords casesensitive="0" weakDeliminator="@" additionalDeliminator="@"/>
   </general>
 </language>
+<!-- kate: replace-tabs on; tab-width 2; indent-width 2; -->

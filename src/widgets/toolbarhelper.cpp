@@ -57,7 +57,7 @@ QToolBar *ToolBarHelper::setupFileToolBar(MainWindow *p_win, QToolBar *p_toolBar
 
         auto toolBtn = dynamic_cast<QToolButton *>(tb->widgetForAction(act));
         Q_ASSERT(toolBtn);
-        toolBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+//        toolBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
         toolBtn->setPopupMode(QToolButton::InstantPopup);
         toolBtn->setProperty(PropertyDefs::c_toolButtonWithoutMenuIndicator, true);
 
@@ -111,7 +111,7 @@ QToolBar *ToolBarHelper::setupFileToolBar(MainWindow *p_win, QToolBar *p_toolBar
     // New Note.
     {
         auto newBtn = WidgetsFactory::createToolButton(tb);
-        newBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
+//        newBtn->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
         // Popup menu.
         auto newMenu = WidgetsFactory::createMenu(tb);
@@ -332,7 +332,7 @@ QToolBar *ToolBarHelper::setupSettingsToolBar(MainWindow *p_win, QToolBar *p_too
             menu->addAction(fullScreenAct);
         }
 
-        auto stayOnTopAct = menu->addAction(generateIcon("stay_on_top.svg"), MainWindow::tr("Stay on Top"),
+        auto stayOnTopAct = menu->addAction(generateIcon("stay_on_top.svg"), MainWindow::tr("Stay On Top"),
                                             p_win, &MainWindow::setStayOnTop);
         stayOnTopAct->setCheckable(true);
         WidgetUtils::addActionShortcut(stayOnTopAct,
@@ -580,11 +580,11 @@ QIcon ToolBarHelper::generateIcon(const QString &p_iconName)
     const auto &themeMgr = VNoteX::getInst().getThemeMgr();
 
     if (colors.isEmpty()) {
-        const auto fg = themeMgr.paletteColor(c_fgPalette);
-        const auto disabledFg = themeMgr.paletteColor(c_disabledPalette);
+    const auto fg = themeMgr.paletteColor(c_fgPalette);
+    const auto disabledFg = themeMgr.paletteColor(c_disabledPalette);
 
-        colors.push_back(IconUtils::OverriddenColor(fg, QIcon::Normal));
-        colors.push_back(IconUtils::OverriddenColor(disabledFg, QIcon::Disabled));
+    colors.push_back(IconUtils::OverriddenColor(fg, QIcon::Normal));
+    colors.push_back(IconUtils::OverriddenColor(disabledFg, QIcon::Disabled));
     }
 
     auto iconFile = themeMgr.getIconFile(p_iconName);

@@ -101,7 +101,7 @@ void DockWidgetHelper::setupDocks()
     tabifiedDockIndex.append(m_docks.size());
     setupHistoryDock();
 
-    tabifiedDockIndex.append(m_docks.size());
+   tabifiedDockIndex.append(m_docks.size());
     setupTagDock();
 
     tabifiedDockIndex.append(m_docks.size());
@@ -266,7 +266,7 @@ void DockWidgetHelper::setupShortcuts()
     setupDockActivateShortcut(m_docks[DockIndex::HistoryDock],
                               coreConfig.getShortcut(CoreConfig::Shortcut::HistoryDock));
 
-    setupDockActivateShortcut(m_docks[DockIndex::TagDock],
+   setupDockActivateShortcut(m_docks[DockIndex::TagDock],
                               coreConfig.getShortcut(CoreConfig::Shortcut::TagDock));
 
     setupDockActivateShortcut(m_docks[DockIndex::SearchDock],
@@ -300,6 +300,10 @@ void DockWidgetHelper::postSetup()
     updateDockWidgetTabBar();
 
     for (const auto dock : m_docks) {
+        //zhangyw add after expand is over, the tabbar icon is not visible
+        connect(dock, &QDockWidget::visibilityChanged,
+                this, &DockWidgetHelper::updateDockWidgetTabBar);
+        //zhangyw add
         connect(dock, &QDockWidget::dockLocationChanged,
                 this, &DockWidgetHelper::updateDockWidgetTabBar);
         connect(dock, &QDockWidget::topLevelChanged,
@@ -432,8 +436,6 @@ void DockWidgetHelper::restoreDocks(const QStringList &p_visibleDocks)
         // At least make one visible.
         getDock(DockIndex::NavigationDock)->setVisible(true);
     }
-
-    updateDockWidgetTabBar();
 }
 
 bool DockWidgetHelper::isAnyDockVisible() const

@@ -98,7 +98,7 @@ void ContentMediaUtils::copyMarkdownMediaFiles(const QString &p_content,
         }
 
         // Get the relative path of the image and apply it to the dest file path.
-        const auto decodedUrlInLink = vte::TextUtils::decodeUrl(link.m_urlInLink);
+        auto decodedUrlInLink = vte::TextUtils::decodeUrl(link.m_urlInLink);
         const auto oldDestFilePath = destDir.filePath(decodedUrlInLink);
         destDir.mkpath(PathUtils::parentDirPath(oldDestFilePath));
         auto destFilePath = p_backend ? p_backend->renameIfExistsCaseInsensitive(oldDestFilePath)

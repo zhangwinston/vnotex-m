@@ -2,7 +2,7 @@
 <!DOCTYPE language SYSTEM "language.dtd">
 
 <language name="FlatBuffers" section="Sources"
-    version="1" kateversion="5.0"
+    version="3" kateversion="5.0"
     indenter="cstyle"
     extensions="*.fbs"
     priority="5"
@@ -81,6 +81,8 @@
             </context>
             <context attribute="Comment" lineEndContext="#pop" name="Comment1">
                 <LineContinue attribute="Comment" context="#stay"/>
+                <DetectSpaces />
+                <IncludeRules context="##Comments"/>
             </context>
 
             <context attribute="String" lineEndContext="#pop" name="String">
@@ -90,6 +92,8 @@
 
             <context attribute="Comment" lineEndContext="#stay" name="Comment2">
                 <Detect2Chars attribute="Comment" context="#pop" char="*" char1="/" endRegion="Comment"/>
+                <DetectSpaces />
+                <IncludeRules context="##Comments"/>
             </context>
 
         </contexts>
@@ -107,8 +111,9 @@
     <general>
         <comments>
             <comment name="singleLine" start="//" />
-            <comment name="multiLine" start="/*" end="*/" />
+            <comment name="multiLine" start="/*" end="*/" region="Comment" />
         </comments>
         <keywords casesensitive="1" />
     </general>
 </language>
+<!-- kate: replace-tabs on; tab-width 4; indent-width 4; -->

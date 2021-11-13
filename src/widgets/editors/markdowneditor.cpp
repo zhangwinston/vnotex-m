@@ -262,7 +262,20 @@ void MarkdownEditor::typeLink()
 void MarkdownEditor::typeImage()
 {
     Q_ASSERT(m_buffer);
-    ImageInsertDialog dialog(tr("Insert Image"), "", "", "", true, this);
+
+    //zhangyw add
+    auto cursor = m_textEdit->textCursor();
+    auto p_block = cursor.block().previous();
+    QString marker("@@");
+    QString new_referer;
+    if (p_block.isValid()&&(p_block.text().startsWith(marker))&&p_block.length()>10){
+         new_referer=p_block.text().mid(2,p_block.length() - 1);
+    }
+    //zhangyw add
+
+    //zhangyw modify
+    ImageInsertDialog dialog(tr("Insert Image"), "", "", "",new_referer, true, this);
+    //zhangyw modify
 
     // Try fetch image from clipboard.
     {
@@ -487,7 +500,7 @@ void MarkdownEditor::handleInsertFromMimeData(const QMimeData *p_source, bool *p
         // Default paste.
         // Give tips about the Rich Paste and Parse As Markdown And Paste features.
         VNoteX::getInst().showStatusMessageShort(
-            tr("For advanced paste, try the \"Rich Paste\" and \"Parse to Markdown and Paste\" on the editor's context menu"));
+            tr("For advanced paste, try the \"Rich Paste\" and \"Parse To Markdown And Paste\" on the editor's context menu"));
         return;
     } else {
         clipboard->setProperty(c_clipboardPropertyMark, false);
@@ -765,7 +778,8 @@ void MarkdownEditor::insertImageFromMimeData(const QMimeData *p_source)
         return;
     }
 
-    ImageInsertDialog dialog(tr("Insert Image From Clipboard"), "", "", "", false, this);
+    ImageInsertDialog dialog(tr("Insert Image"), "", "", "",NULL, false, this);
+    //ImageInsertDialog dialog(tr("Insert Image From Clipboard"), "", "", "", false, this);
     dialog.setImage(image);
     if (dialog.exec() == QDialog::Accepted) {
         enterInsertModeIfApplicable();
@@ -778,7 +792,20 @@ void MarkdownEditor::insertImageFromMimeData(const QMimeData *p_source)
 
 void MarkdownEditor::insertImageFromUrl(const QString &p_url)
 {
-    ImageInsertDialog dialog(tr("Insert Image From URL"), "", "", "", false, this);
+    //zhangyw add
+    auto cursor = m_textEdit->textCursor();
+    auto p_block = cursor.block().previous();
+    QString marker("@@");
+    QString new_referer;
+    if (p_block.isValid()&&(p_block.text().startsWith(marker))&&p_block.length()>10){
+         new_referer=p_block.text().mid(2,p_block.length() - 1);
+    }
+    //zhangyw add
+
+    //zhangyw modify
+    ImageInsertDialog dialog(tr("Insert Image"), "", "", "",new_referer, false, this);
+    //ImageInsertDialog dialog(tr("Insert Image From URL"), "", "", "", false, this);
+
     dialog.setImagePath(p_url);
     if (dialog.exec() == QDialog::Accepted) {
         enterInsertModeIfApplicable();
@@ -994,8 +1021,8 @@ void MarkdownEditor::handleContextMenuEvent(QContextMenuEvent *p_event, bool *p_
         WidgetUtils::insertActionAfter(menu, pasteAct, richPasteAct);
 
         if (mimeData->hasHtml()) {
-            // Parse to Markdown and Paste.
-            auto parsePasteAct = new QAction(tr("Parse to Markdown and Paste"), menu);
+            // Parse To Markdown And Paste.
+            auto parsePasteAct = new QAction(tr("Parse To Markdown And Paste"), menu);
             connect(parsePasteAct, &QAction::triggered,
                     this, &MarkdownEditor::parseToMarkdownAndPaste);
             WidgetUtils::insertActionAfter(menu, richPasteAct, parsePasteAct);
@@ -1157,7 +1184,25 @@ void MarkdownEditor::fetchImagesToLocalAndReplace(QString &p_text)
             if (imageUrl.startsWith(QStringLiteral("//"))) {
                 imageUrl.prepend(QStringLiteral("https:"));
             }
-            QByteArray data = vte::NetworkAccess::request(QUrl(imageUrl)).m_data;
+
+            //zhangyw add
+            auto doc = document();
+            QTextBlock p_block=doc->firstBlock();
+            QString marker("@@");
+            QString new_referer;
+            if (p_block.isValid()&&(p_block.text().startsWith(marker))&&p_block.length()>10){
+                new_referer=p_block.text().mid(2,p_block.length() - 1);
+            }
+            vte::NetworkAccess::RawHeaderPairs rawHeader;
+            if(new_referer!=NULL){
+                rawHeader.push_back(qMakePair(QByteArray("referer"),new_referer.toUtf8()));
+            }
+            //zhangyw add
+
+            //zhangyw modify
+            QByteArray data = vte::NetworkAccess::request(QUrl(imageUrl),rawHeader).m_data;
+            //QByteArray data = vte::NetworkAccess::request(QUrl(imageUrl)).m_data;
+
             if (!data.isEmpty()) {
                 // Prefer the suffix from the real data.
                 auto suffix = ImageUtils::guessImageSuffix(data);

@@ -905,6 +905,11 @@ QSharedPointer<vte::MarkdownEditorConfig> MarkdownViewWindow::createMarkdownEdit
 
     editorConfig->m_constrainInplacePreviewWidthEnabled = p_config.getConstrainInplacePreviewWidthEnabled();
 
+    //zhangyw add
+    editorConfig->m_leading_space_line_factor=p_config.getLeadingSpaceOfLineFactor();
+    editorConfig->m_leading_space_line_code_block_factor=p_config.getLeadingSpaceOfLineInCodeBlockFactor();
+    //zhangyw add
+
     {
         auto srcs = p_config.getInplacePreviewSources();
         vte::MarkdownEditorConfig::InplacePreviewSources editorSrcs = vte::MarkdownEditorConfig::NoInplacePreview;

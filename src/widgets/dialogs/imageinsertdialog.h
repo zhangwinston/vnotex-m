@@ -37,6 +37,7 @@ namespace vnotex
                           const QString &p_imageTitle,
                           const QString &p_imageAlt,
                           const QString &p_imagePath,
+                          const QString &p_referer,
                           bool p_browserEnabled = true,
                           QWidget *p_parent = nullptr);
 
@@ -81,6 +82,8 @@ namespace vnotex
         bool m_browserEnabled = true;
 
         Source m_source = Source::LocalFile;
+
+        QString m_referer =NULL;
 
         QLineEdit *m_imagePathEdit = nullptr;
 

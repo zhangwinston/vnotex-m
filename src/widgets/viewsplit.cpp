@@ -44,7 +44,8 @@ ViewSplit::ViewSplit(const QVector<QSharedPointer<ViewWorkspace>> &p_allWorkspac
                      const QSharedPointer<ViewWorkspace> &p_workspace,
                      ID p_id,
                      QWidget *p_parent)
-    : QTabWidget(p_parent),
+//    : QTabWidget(p_parent),
+    : TabWidget(p_parent),
       m_id(p_id),
       m_allWorkspaces(p_allWorkspaces)
 {
