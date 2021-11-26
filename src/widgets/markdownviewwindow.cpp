@@ -12,6 +12,7 @@
 #include <QMenu>
 #include <QActionGroup>
 #include <QTimer>
+#include <QPrinter>
 
 #include <core/fileopenparameters.h>
 #include <core/editorconfig.h>
@@ -21,6 +22,7 @@
 #include <vtextedit/markdowneditorconfig.h>
 #include <utils/pathutils.h>
 #include <utils/widgetutils.h>
+#include <utils/printutils.h>
 #include <buffer/markdownbuffer.h>
 #include <core/vnotex.h>
 #include <core/thememgr.h>
@@ -152,6 +154,8 @@ void MarkdownViewWindow::setModeInternal(ViewWindowMode p_mode, bool p_syncBuffe
             m_editor->show();
 
             setEditViewMode(ConfigMgr::getInst().getEditorConfig().getMarkdownEditorConfig().getEditViewMode());
+        } else {
+            setEditViewMode(m_editViewMode);
         }
 
         // Avoid focus glitch.
@@ -316,8 +320,10 @@ void MarkdownViewWindow::setupToolBar()
     addAction(toolBar, ViewWindowToolBarHelper::TypeTable);
 
     ToolBarHelper::addSpacer(toolBar);
-    addAction(toolBar, ViewWindowToolBarHelper::FindAndReplace);
+
     addAction(toolBar, ViewWindowToolBarHelper::Outline);
+    addAction(toolBar, ViewWindowToolBarHelper::FindAndReplace);
+    addAction(toolBar, ViewWindowToolBarHelper::Print);
 
     {
         auto act = addAction(toolBar, ViewWindowToolBarHelper::Debug);
@@ -1376,4 +1382,19 @@ void MarkdownViewWindow::syncEditorPositionToPreview()
     }
 
     adapter()->scrollToPosition(MarkdownViewerAdapter::Position(m_editor->getTopLine(), QString()));
+}
+
+void MarkdownViewWindow::print()
+{
+    if (!m_viewer || !m_viewerReady) {
+        return;
+    }
+
+    auto printer = PrintUtils::promptForPrint(m_viewer->hasSelection(), this);
+    if (printer) {
+        m_viewer->page()->print(printer.data(), [printer](bool p_succeeded) mutable {
+                    Q_UNUSED(p_succeeded);
+                    printer.reset();
+                });
+    }
 }

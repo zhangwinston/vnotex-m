@@ -536,6 +536,14 @@ QAction *ViewWindow::addAction(QToolBar *p_toolBar, ViewWindowToolBarHelper::Act
         break;
     }
 
+    case ViewWindowToolBarHelper::Print:
+    {
+        act = ViewWindowToolBarHelper::addAction(p_toolBar, p_action);
+        connect(act, &QAction::triggered,
+                this, &ViewWindow::print);
+        break;
+    }
+
     default:
         Q_ASSERT(false);
         break;
@@ -1154,9 +1162,13 @@ void ViewWindow::replaceAll(const QString &p_text, FindOptions p_options, const 
 
 void ViewWindow::showFindResult(const QStringList &p_texts, int p_totalMatches, int p_currentMatchIndex)
 {
+    if (p_texts.isEmpty() || p_texts[0].isEmpty()) {
+        showMessage(QString());
+        return;
+    }
+
     if (p_totalMatches == 0) {
-        showMessage(tr("Pattern not found: %1%2").arg(p_texts.isEmpty() ? QString() : p_texts[0],
-                                                      p_texts.size() > 1 ? tr(" [+]"): QString()));
+        showMessage(tr("Pattern not found: %1").arg(p_texts.join(QStringLiteral("; "))));
     } else {
         showMessage(tr("Match found: %1/%2").arg(p_currentMatchIndex + 1).arg(p_totalMatches));
     }
@@ -1324,7 +1336,7 @@ bool ViewWindow::isSessionEnabled() const
 
 void ViewWindow::toggleDebug()
 {
-    qDebug() << "debug is not supported";
+    qWarning() << "debug is not supported";
 }
 
 void ViewWindow::updateViewModeMenu(QMenu *p_menu)
@@ -1333,4 +1345,9 @@ void ViewWindow::updateViewModeMenu(QMenu *p_menu)
 
     auto act = p_menu->addAction(tr("View Mode Not Supported"));
     act->setEnabled(false);
+}
+
+void ViewWindow::print()
+{
+    qWarning() << "print is not supported";
 }
