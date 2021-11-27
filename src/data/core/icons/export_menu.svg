@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256"><path fill="none" d="M0 0H24V24H0z"/><path d="M36.9,237.1c-6.3,0-11.4-4.9-11.4-10.9V30.7c0-6,5.1-10.9,11.4-10.9h159.4c6.3,0,11.4,4.9,11.4,10.9v32.6h-22.8V41.6H48.3 v173.8h136.6v-21.7h22.8v32.6c0,6-5.1,10.9-11.4,10.9H36.9z M184.9,171.9v-32.6h-79.7v-21.7h79.7V85l56.9,43.4L184.9,171.9z" fill="#000"/></svg>
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 256 256" style="enable-background:new 0 0 256 256;" xml:space="preserve">
+<path d="M31,237.2c-6.3,0-11.5-4.9-11.5-10.9V30.5c0-6,5.1-10.9,11.5-10.9h160.4c6.3,0,11.5,4.9,11.5,10.9v32.6H180V41.4H42.5v174
+	H180v-21.7h22.9v32.6c0,6-5.1,10.9-11.5,10.9H31V237.2z M180,171.9v-32.6H99.8v-21.7H180V84.8l57.3,43.5L180,171.9z" fill="#000"/>
+</svg>
