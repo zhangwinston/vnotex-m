@@ -8,6 +8,9 @@
 #include <QDateTime>
 #include <QSysInfo>
 #include <QProcess>
+#include <QWebEngineSettings>
+#include <QWindow>
+#include <QAccessible>
 
 #include <core/configmgr.h>
 #include <core/mainconfig.h>
@@ -17,11 +20,12 @@
 #include <core/vnotex.h>
 #include <core/logger.h>
 #include <widgets/mainwindow.h>
-#include <QWebEngineSettings>
 #include <core/exception.h>
+#include <utils/widgetutils.h>
 #include <widgets/messageboxhelper.h>
 #include "commandlineoptions.h"
 #include "application.h"
+#include "fakeaccessible.h"
 
 using namespace vnotex;
 
@@ -71,6 +75,8 @@ int main(int argc, char *argv[])
     Application app(argc, argv);
 
     initWebEngineSettings();
+
+    QAccessible::installFactory(&FakeAccessible::accessibleFactory);
 
     {
         const QString iconPath = ":/vnotex/data/core/icons/vnote.ico";
@@ -145,17 +151,8 @@ int main(int argc, char *argv[])
     // Should set the correct locale before VNoteX::getInst().
     loadTranslators(app);
 
-    if (app.styleSheet().isEmpty()) {
-        auto style = VNoteX::getInst().getThemeMgr().fetchQtStyleSheet();
-        if (!style.isEmpty()) {
-            app.setStyleSheet(style);
-        }
-    }
-
     MainWindow window;
-
     window.show();
-    VNoteX::getInst().getThemeMgr().setBaseBackground(window.palette().color(QPalette::Base));
 
     QObject::connect(&guard, &SingleInstanceGuard::showRequested,
                      &window, &MainWindow::showMainWindow);
@@ -166,6 +163,19 @@ int main(int argc, char *argv[])
                      &window, [&window](const QString &p_filePath) {
                          window.openFiles(QStringList() << p_filePath);
                      });
+
+    // Let MainWindow show first to decide the screen on which app is running.
+    WidgetUtils::calculateScaleFactor(window.windowHandle()->screen());
+
+    if (app.styleSheet().isEmpty()) {
+        auto style = VNoteX::getInst().getThemeMgr().fetchQtStyleSheet();
+        if (!style.isEmpty()) {
+            app.setStyleSheet(style);
+            WidgetUtils::updateStyle(&window);
+        }
+    }
+
+    VNoteX::getInst().getThemeMgr().setBaseBackground(window.palette().color(QPalette::Base));
 
     window.kickOffOnStart(cmdOptions.m_pathsToOpen);
 
