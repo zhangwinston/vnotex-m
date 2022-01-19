@@ -69,6 +69,8 @@ class VNoteX extends EventEmitter {
                                            window.vxOptions.imageAlignCenterEnabled);
             this.setContentContainerOption('vx-indent-first-line',
                                            window.vxOptions.indentFirstLineEnabled);
+            this.setContentContainerOption('line-numbers',
+                                           window.vxOptions.codeBlockLineNumberEnabled);
             this.setBodyOption('vx-transparent-background',
                                window.vxOptions.transparentBackgroundEnabled);
             this.setContentContainerOption('vx-nonscrollable',
@@ -268,6 +270,49 @@ class VNoteX extends EventEmitter {
 
         let markdown = this.turndown.turndown(p_html);
         window.vxMarkdownAdapter.setMarkdownFromHtml(p_id, p_timeStamp, markdown);
+    }
+
+    highlightCodeBlock(p_idx, p_timeStamp, p_text) {
+        let match = /^```[^\S\n]*(\S+)?\s*\n([\s\S]+)\n```\s*$/.exec(p_text);
+        if (!match || !match[1] || !match[2]) {
+            window.vxMarkdownAdapter.setCodeBlockHighlightHtml(p_idx, p_timeStamp, '');
+            return;
+        }
+
+        let lang = match[1];
+        let body = match[2];
+
+        if (Prism && Prism.languages[lang]) {
+             let html = Prism.highlight(body, Prism.languages[lang], lang);
+            window.vxMarkdownAdapter.setCodeBlockHighlightHtml(p_idx, p_timeStamp, html);
+        } else {
+            window.vxMarkdownAdapter.setCodeBlockHighlightHtml(p_idx, p_timeStamp, '');
+        }
+    }
+
+    parseStyleSheet(p_id, p_styleSheet) {
+        let doc = document.implementation.createHTMLDocument('');
+        let styleEle = document.createElement('style');
+        styleEle.textContent = p_styleSheet;
+        doc.body.appendChild(styleEle);
+
+        let styles = [];
+        for (let i = 0; i < styleEle.sheet.cssRules.length; ++i) {
+            let rule = styleEle.sheet.cssRules[i];
+            if (rule.type != CSSRule.STYLE_RULE) {
+                continue;
+            }
+
+            styles.push({
+                selector: rule.selectorText,
+                color: rule.style.color,
+                backgroundColor: rule.style.backgroundColor,
+                fontWeight: rule.style.fontWeight,
+                fontStyle: rule.style.fontStyle
+            });
+        }
+
+        window.vxMarkdownAdapter.setStyleSheetStyles(p_id, styles);
     }
 
     setCrossCopyTargets(p_targets) {

@@ -383,7 +383,11 @@ void MainWindow::closeEvent(QCloseEvent *p_event)
         // Avoid geometry corruption caused by fullscreen or minimized window.
         const auto state = windowState();
         if (state & (Qt::WindowMinimized | Qt::WindowFullScreen)) {
-            showNormal();
+            if (m_windowOldState & Qt::WindowMaximized) {
+                showMaximized();
+            } else {
+                showNormal();
+            }
         }
         saveStateAndGeometry();
     }
@@ -423,6 +427,7 @@ void MainWindow::saveStateAndGeometry()
     sg.m_mainGeometry = saveGeometry();
     sg.m_visibleDocksBeforeExpand = m_visibleDocksBeforeExpand;
     sg.m_tagExplorerState = m_tagExplorer->saveState();
+    sg.m_notebookExplorerState = m_notebookExplorer->saveState();
 
     auto& sessionConfig = ConfigMgr::getInst().getSessionConfig();
     sessionConfig.setMainWindowStateGeometry(sg);
@@ -452,6 +457,10 @@ void MainWindow::loadStateAndGeometry(bool p_stateOnly)
 
     if (!sg.m_tagExplorerState.isEmpty()) {
         m_tagExplorer->restoreState(sg.m_tagExplorerState);
+    }
+
+    if (!sg.m_notebookExplorerState.isEmpty()) {
+        m_notebookExplorer->restoreState(sg.m_notebookExplorerState);
     }
 }
 
@@ -590,6 +599,8 @@ void MainWindow::setStayOnTop(bool p_enabled)
     } else {
         setWindowFlags(flags ^ magicFlag);
     }
+
+    setWindowFlagsOnUpdate();
 
     if (shown) {
         show();

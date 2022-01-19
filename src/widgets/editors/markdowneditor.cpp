@@ -1084,7 +1084,6 @@ void MarkdownEditor::parseToMarkdownAndPaste()
 void MarkdownEditor::handleHtmlToMarkdownData(quint64 p_id, TimeStamp p_timeStamp, const QString &p_text)
 {
     Q_UNUSED(p_id);
-    qDebug() << "htmlToMarkdownData" << p_timeStamp;
     if (m_timeStamp == p_timeStamp && !p_text.isEmpty()) {
         QString text(p_text);
 
@@ -1096,7 +1095,6 @@ void MarkdownEditor::handleHtmlToMarkdownData(quint64 p_id, TimeStamp p_timeStam
         insertText(text);
     }
 }
-
 
 static QString purifyImageTitle(QString p_title)
 {

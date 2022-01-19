@@ -76,6 +76,9 @@ namespace vnotex
         const QString &getGraphvizExe() const;
         void setGraphvizExe(const QString &p_exe);
 
+        const QString &getMathJaxScript() const;
+        void setMathJaxScript(const QString &p_script);
+
         bool getPrependDotInRelativeLink() const;
 
         bool getConfirmBeforeClearObsoleteImages() const;
@@ -121,6 +124,9 @@ namespace vnotex
 
         bool getIndentFirstLineEnabled() const;
         void setIndentFirstLineEnabled(bool p_enabled);
+
+        bool getCodeBlockLineNumberEnabled() const;
+        void setCodeBlockLineNumberEnabled(bool p_enabled);
 
         bool getSmartTableEnabled() const;
         void setSmartTableEnabled(bool p_enabled);
@@ -187,6 +193,9 @@ namespace vnotex
         // Graphviz executable file.
         QString m_graphvizExe;
 
+        // MathJax script to override that in mathjax.js file.
+        QString m_mathJaxScript;
+
         // Whether prepend a dot in front of the relative link, like images.
         bool m_prependDotInRelativeLink = false;
 
@@ -208,7 +217,7 @@ namespace vnotex
         // Whether enable image width constraint.
         bool m_constrainImageWidthEnabled = true;
 
-        bool m_imageAlignCenterEnabled = true;
+        bool m_imageAlignCenterEnabled = false;
 
         // Whether enable in-place preview width constraint.
         bool m_constrainInplacePreviewWidthEnabled = false;
@@ -233,6 +242,9 @@ namespace vnotex
         // Whether indent the first line of a paragraph.
         bool m_indentFirstLineEnabled = false;
 
+        // Whether enable code block line number in read mode.
+        bool m_codeBlockLineNumberEnabled = true;
+
         bool m_smartTableEnabled = true;
 
         // Interval time to do smart table format.
@@ -253,7 +265,7 @@ namespace vnotex
         InplacePreviewSources m_inplacePreviewSources = InplacePreviewSource::NoInplacePreview;
 
         // View mode in edit mode.
-        EditViewMode m_editViewMode = EditViewMode::EditPreview;
+        EditViewMode m_editViewMode = EditViewMode::EditOnly;
     };
 }
 
