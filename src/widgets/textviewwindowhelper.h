@@ -278,6 +278,12 @@ namespace vnotex
             if (!snippetName.isEmpty()) {
                 applySnippet(p_win, snippetName);
             }
+            //add by zhangyouwen if active the applysnippet but press escape, then make input method enable
+            else{
+                if(textEdit->getInputMethodDisableAfterLeaderKey()==true)
+                    textEdit->setInputMethodEnabled(true);
+            }
+            //add by zhangyouwen
         }
 
         template <typename _ViewWindow>
