@@ -5,6 +5,6 @@ equals(QT_MAJOR_VERSION, 5):lessThan(QT_MINOR_VERSION, 12): error("requires Qt 5
 QT += core gui widgets network svg webenginewidgets webchannel
 QT += testlib
 
-CONFIG += c++14 testcase
+CONFIG += c++17 testcase
 
 CONFIG += no_testcase_installs

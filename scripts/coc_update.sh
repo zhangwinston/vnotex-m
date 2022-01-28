@@ -10,7 +10,7 @@ ccls_file=".ccls"
 
 echo clang > $ccls_file
 echo -fcxx-exceptions >> $ccls_file
-echo -std=c++14 >> $ccls_file
+echo -std=c++17 >> $ccls_file
 echo -Isrc/core >> $ccls_file
 echo -Isrc >> $ccls_file
 echo -Ilibs/vtextedit/src/editor/include >> $ccls_file
