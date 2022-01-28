@@ -1305,26 +1305,14 @@ QAction *NotebookNodeExplorer::createAction(Action p_act, QObject *p_parent, boo
                 this, [this, p_master]() {
                     auto nodes = p_master ? getMasterSelectedNodesAndExternalNodes() : getSlaveSelectedNodesAndExternalNodes();
                     QStringList files;
-                    bool hasFilteredAway = false;
                     for (const auto &node : nodes.first) {
-                        if (node->hasContent()) {
-                            files.push_back(node->fetchAbsolutePath());
-                        } else {
-                            hasFilteredAway = true;
-                        }
+                        files.push_back(node->fetchAbsolutePath());
                     }
                     for (const auto &node : nodes.second) {
-                        if (!node->isFolder()) {
-                            files.push_back(node->fetchAbsolutePath());
-                        } else {
-                            hasFilteredAway = true;
-                        }
+                        files.push_back(node->fetchAbsolutePath());
                     }
                     if (!files.isEmpty()) {
                         emit VNoteX::getInst().pinToQuickAccessRequested(files);
-                    }
-                    if (hasFilteredAway) {
-                        VNoteX::getInst().showStatusMessageShort(tr("Folder is not supported by quick access"));
                     }
                 });
         break;
@@ -2302,7 +2290,11 @@ void NotebookNodeExplorer::updateSlaveExplorer()
             return;
         }
 
-        masterNode = getCurrentMasterNode();
+        auto data = getItemNodeData(item);
+        if (data.isNode()) {
+            masterNode = data.getNode();
+            Q_ASSERT(masterNode->isContainer());
+        }
     } else {
         // Root node.
         masterNode = m_notebook ? m_notebook->getRootNode().data() : nullptr;
