@@ -278,12 +278,13 @@ namespace vnotex
             if (!snippetName.isEmpty()) {
                 applySnippet(p_win, snippetName);
             }
-            //add by zhangyouwen if active the applysnippet but press escape, then make input method enable
-            else{
-                if(textEdit->getInputMethodDisableAfterLeaderKey()==true)
-                    textEdit->setInputMethodEnabled(true);
-            }
-            //add by zhangyouwen
+
+            //add by zhangyw leaderkey skip after apply snippet enable inputmethod
+            const auto &coreConfig = ConfigMgr::getInst().getCoreConfig();
+            const auto applyShortcut=ConfigMgr::getInst().getEditorConfig().getShortcut(EditorConfig::Shortcut::ApplySnippet);
+            if(applyShortcut.contains(coreConfig.getShortcutLeaderKey()))
+                textEdit->enableInputMethodAfterShortcutWithLeaderKey();
+            //add by zhangyw leaderkey skip after apply snippet enable inputmethod
         }
 
         template <typename _ViewWindow>

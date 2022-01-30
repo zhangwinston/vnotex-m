@@ -212,14 +212,14 @@ void ImageInsertDialog::checkImagePathInput()
                     this, &ImageInsertDialog::handleImageDownloaded);
         }
 
-        //zhangyw add
+        //zhangyw add download image from special site
         vte::NetworkAccess::RawHeaderPairs rawHeader;
         if(m_referer!=NULL){
             rawHeader.push_back(qMakePair(QByteArray("referer"),m_referer.toUtf8()));
         }
-        //zhangyw add
+        //zhangyw add download image from special site
 
-        //zhangyw modify
+        //zhangyw modify download image from special site
         m_downloader->requestAsync(url, rawHeader);
         //m_downloader->requestAsync(url);
     }

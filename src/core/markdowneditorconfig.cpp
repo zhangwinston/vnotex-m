@@ -526,7 +526,7 @@ int MarkdownEditorConfig::getSmartTableInterval() const
     return m_smartTableInterval;
 }
 
-//zhangyw add
+//zhangyw add space of lines/codeblock
 qreal MarkdownEditorConfig::getLeadingSpaceOfLineFactor() const
 {
     return m_leading_space_line_factor;
@@ -543,7 +543,7 @@ void MarkdownEditorConfig::setLeadingSpaceOfLineInCodeBlockFactor(qreal factor)
 {
     updateConfig(m_leading_space_line_code_block_factor, factor, this);
 }
-//zhangyw add
+//zhangyw add space of lines/codeblock
 
 bool MarkdownEditorConfig::isSpellCheckEnabled() const
 {

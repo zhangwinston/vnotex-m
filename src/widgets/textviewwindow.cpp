@@ -255,8 +255,23 @@ void TextViewWindow::updateEditorFromConfig()
     }
 
     {
-        vte::Key leaderKey(coreConfig.getShortcutLeaderKey());
+        QString leaderStr=coreConfig.getShortcutLeaderKey();
+        vte::Key leaderKey(leaderStr);
         m_editor->setLeaderKeyToSkip(leaderKey.m_key, leaderKey.m_modifiers);
+
+        //add by zhangyw leaderkey skip, navigationMode skip extra keys
+        QString navigationModeStr=coreConfig.getShortcut(CoreConfig::Shortcut::NavigationMode);
+        if(navigationModeStr.startsWith(leaderStr))
+        {
+            QStringList strList=navigationModeStr.split(" ");
+            if(strList[strList.count()-1].length()>0)
+            {
+                qWarning() << "navigationModeStr :" << strList[strList.count()-1];
+                vte::Key navigationModeKey(strList[strList.count()-1]);
+                m_editor->setNavigationModeKeyToSkip(navigationModeKey.m_key, navigationModeKey.m_modifiers);
+            }
+        }
+        //add by zhangyw leaderkey skip, navigationMode skip extra keys
     }
 }
 

@@ -264,7 +264,7 @@ void MarkdownEditor::typeImage()
 {
     Q_ASSERT(m_buffer);
 
-    //zhangyw add
+    //zhangyw add download image from special site
     auto cursor = m_textEdit->textCursor();
     auto p_block = cursor.block().previous();
     QString marker("@@");
@@ -272,11 +272,11 @@ void MarkdownEditor::typeImage()
     if (p_block.isValid()&&(p_block.text().startsWith(marker))&&p_block.length()>10){
          new_referer=p_block.text().mid(2,p_block.length() - 1);
     }
-    //zhangyw add
+    //zhangyw add download image from special site
 
-    //zhangyw modify
+    //zhangyw modify download image from special site
     ImageInsertDialog dialog(tr("Insert Image"), "", "", "",new_referer, true, this);
-    //zhangyw modify
+    //zhangyw modify download image from special site
 
     // Try fetch image from clipboard.
     {
@@ -793,7 +793,7 @@ void MarkdownEditor::insertImageFromMimeData(const QMimeData *p_source)
 
 void MarkdownEditor::insertImageFromUrl(const QString &p_url)
 {
-    //zhangyw add
+    //zhangyw add download image from special site
     auto cursor = m_textEdit->textCursor();
     auto p_block = cursor.block().previous();
     QString marker("@@");
@@ -801,9 +801,9 @@ void MarkdownEditor::insertImageFromUrl(const QString &p_url)
     if (p_block.isValid()&&(p_block.text().startsWith(marker))&&p_block.length()>10){
          new_referer=p_block.text().mid(2,p_block.length() - 1);
     }
-    //zhangyw add
+    //zhangyw add download image from special site
 
-    //zhangyw modify
+    //zhangyw modify download image from special site
     ImageInsertDialog dialog(tr("Insert Image"), "", "", "",new_referer, false, this);
     //ImageInsertDialog dialog(tr("Insert Image From URL"), "", "", "", false, this);
 
@@ -1184,7 +1184,7 @@ void MarkdownEditor::fetchImagesToLocalAndReplace(QString &p_text)
                 imageUrl.prepend(QStringLiteral("https:"));
             }
 
-            //zhangyw add
+            //zhangyw add download image from special site
             auto doc = document();
             QTextBlock p_block=doc->firstBlock();
             QString marker("@@");
@@ -1196,9 +1196,9 @@ void MarkdownEditor::fetchImagesToLocalAndReplace(QString &p_text)
             if(new_referer!=NULL){
                 rawHeader.push_back(qMakePair(QByteArray("referer"),new_referer.toUtf8()));
             }
-            //zhangyw add
+            //zhangyw add download image from special site
 
-            //zhangyw modify
+            //zhangyw modify download image from special site
             QByteArray data = vte::NetworkAccess::request(QUrl(imageUrl),rawHeader).m_data;
             //QByteArray data = vte::NetworkAccess::request(QUrl(imageUrl)).m_data;
 
