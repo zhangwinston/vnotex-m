@@ -259,19 +259,21 @@ void TextViewWindow::updateEditorFromConfig()
         vte::Key leaderKey(leaderStr);
         m_editor->setLeaderKeyToSkip(leaderKey.m_key, leaderKey.m_modifiers);
 
-        //add by zhangyw leaderkey skip, navigationMode skip extra keys
+        //add by zhangyw navigationMode skip extra keys
+        QString keyStr=nullptr;
         QString navigationModeStr=coreConfig.getShortcut(CoreConfig::Shortcut::NavigationMode);
-        if(navigationModeStr.startsWith(leaderStr))
-        {
+        if(navigationModeStr.startsWith(leaderStr)){ //shortcut with leaderkey
             QStringList strList=navigationModeStr.split(" ");
-            if(strList[strList.count()-1].length()>0)
-            {
-                qWarning() << "navigationModeStr :" << strList[strList.count()-1];
-                vte::Key navigationModeKey(strList[strList.count()-1]);
-                m_editor->setNavigationModeKeyToSkip(navigationModeKey.m_key, navigationModeKey.m_modifiers);
+            if(strList[strList.count()-1].length()>0){
+                keyStr=strList[strList.count()-1];
             }
         }
-        //add by zhangyw leaderkey skip, navigationMode skip extra keys
+        if(keyStr==nullptr){ // shortcut without leader key
+            keyStr=navigationModeStr;
+        }
+        vte::Key navigationModeKey(keyStr);
+        m_editor->setNavigationModeKeyToSkip(navigationModeKey.m_key, navigationModeKey.m_modifiers);
+        //add by zhangyw navigationMode skip extra keys
     }
 }
 
