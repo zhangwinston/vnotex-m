@@ -1463,6 +1463,7 @@ void MarkdownViewWindow::updateEditorFromConfig()
 
         //add by zhangyw navigationMode skip extra keys
         QString keyStr=nullptr;
+        bool withLeaderKey=true;
         QString navigationModeStr=coreConfig.getShortcut(CoreConfig::Shortcut::NavigationMode);
         if(navigationModeStr.startsWith(leaderStr)){ //shortcut with leaderkey
             QStringList strList=navigationModeStr.split(" ");
@@ -1472,9 +1473,10 @@ void MarkdownViewWindow::updateEditorFromConfig()
         }
         if(keyStr==nullptr){ // shortcut without leader key
             keyStr=navigationModeStr;
+            withLeaderKey=false;
         }
         vte::Key navigationModeKey(keyStr);
-        m_editor->setNavigationModeKeyToSkip(navigationModeKey.m_key, navigationModeKey.m_modifiers);
+        m_editor->setNavigationModeKeyToSkip(navigationModeKey.m_key, navigationModeKey.m_modifiers,withLeaderKey);
         //add by zhangyw navigationMode skip extra keys
     }
 }
